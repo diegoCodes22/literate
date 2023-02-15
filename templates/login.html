@@ -1,0 +1,27 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+  <div class="text-center">
+    <h1>Log In</h1>
+  </div> <br>
+    <form action="/login" method="post" id="login" class="form-parent">
+        <div class="text-center">
+            <div class="mb-3 form-div">
+                <label for="email"></label>
+                <input autofocus autocomplete="off" required placeholder="Email*" name="email" type="text" class="form-field" id="email">
+                <div><small></small></div>
+            </div>
+            <div class="mb-3 form-div">
+                <label for="password"></label>
+                <input placeholder="Password*" required name="password" type="password" class="form-field" id="password">
+                <div><small></small></div>
+            </div>
+                <button type="submit" class="btn-primary" id="form_button">Log In</button>
+            <p><strong class="error">{{ login_error }}</strong></p>
+        </div>
+    </form>
+{% endblock %}

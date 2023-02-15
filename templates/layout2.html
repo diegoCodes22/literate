@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+   <link rel="stylesheet" href="../static/styles2.css" type="text/css">
+  
+  <title>Literate: {% block title %}{% endblock %}</title>
+</head>
+<body class="off-white">
+  <div class="vertical-nav grid-container">
+      <div class="grid-item grid-item-nav">
+        <a href="/static" class="brand">Literate</a>
+        {% if session["user_id"] %}
+          <ul class="nav-list">
+              <li class="nav-content"><a href="/static" class="nav-links">Dashboard</a></li>
+              <li class="nav-content"><a href="/create_deck" class="nav-links">Create deck</a></li>
+              <li class="nav-content"><a href="/practice" class="nav-links">Practice</a></li>
+              <li class="nav-content"><a href="/find_decks" class="nav-links">Find other decks</a></li>
+              <li class="nav-content"><a href="/logout" class="nav-links">Log Out</a></li>
+          </ul>
+        {% else %}
+          <ul class="nav-list">
+            <li class="nav-content"><a href="/login" class="nav-links">Log In</a></li>
+            <li class="nav-content"><a href="/register" class="nav-links">Register</a></li>
+          </ul>
+      </div>
+        {% endif %}
+      <div class="grid-item grid-item-content off-white">
+        <main>
+          {% block main %}
+  
+          {% endblock %}
+        </main>
+      </div>
+  </div>
+    <script type="text/javascript" src="../static/scripts.js"></script>
+</body>
+</html>
