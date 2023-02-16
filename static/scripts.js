@@ -107,9 +107,28 @@ if (register_form){
         confirmed_password = password_confirm();
 
         let register_validity =  password_validity && email_validity && confirmed_password;
-        if (register_validity) {
-            register_form.submit();
-        }
+        // if (register_validity) {
+        //     register_form.submit();
+        //}
+
+        //--Esto es el instant email check, vamos a ver si funciona lo tengo que probar despues pq me estoy quedando sin pila!!!!!!!
+        if (email_validity) {
+            $.ajax({
+                type: "POST",
+                url: "/check_email",
+                data: email_validate().email,
+                contentType: "aplication/json",
+                dataType: "json",
+                success: function(availability) {
+                    if (!availability) {
+                        showError(emailEl, "Email already in use.");
+                    }
+                    else if (register_validity && availability){
+                        register_form.submit();
+                    }
+                }
+            });
+        }//--
     });
 }
 

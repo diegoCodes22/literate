@@ -12,6 +12,7 @@ app.debug = True
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
 # Connect to database
 database = "literate.sqlite"
 conn = sqlite3.connect(database, check_same_thread=False)
@@ -86,3 +87,17 @@ def register():
         return redirect("/login")
     else:
         return render_template("register.html")
+
+
+@app.route("/check_email", methods=["POST", "GET"])
+def check_email():
+    email = request.form.get("email")
+    availability = True
+
+    cur.execute("SELECT email FROM users WHERE email=?", email)
+    existence = cur.fetchone()
+
+    if existence:
+        availability = False
+
+    return availability
