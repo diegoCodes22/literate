@@ -5,20 +5,6 @@ import sqlite3
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import date
 
-# /login -- Done
-# /register -- Done
-
-# /start_page
-# /dashboard
-# /practice
-# /create_deck
-# /find_decks
-
-# last practice is how I will track streaks, no con login
-# email have to be unique key
-# check for email availability (instant)
-
-
 app = Flask(__name__)
 app.debug = True
 
