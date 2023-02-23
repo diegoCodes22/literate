@@ -1,9 +1,9 @@
-from flask import Flask, session, redirect, request, render_template
+from flask import Flask, session, redirect, request, render_template, jsonify
 from helpers import login_required
 from flask_session import Session
 import sqlite3
 from werkzeug.security import check_password_hash, generate_password_hash
-from datetime import date
+import json
 
 app = Flask(__name__)
 app.debug = True
@@ -74,6 +74,7 @@ def logout():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
+
     if request.method == "POST":
 
         password_hash = generate_password_hash(request.form.get("password"))
@@ -89,15 +90,14 @@ def register():
         return render_template("register.html")
 
 
-@app.route("/check_email", methods=["POST", "GET"])
-def check_email():
-    email = request.form.get("email")
-    availability = True
+@app.route("/email_availability", methods=["POST"])
+def email_availability():
+    if request.method == "POST":
+        email = request.form.get("email")
 
-    cur.execute("SELECT email FROM users WHERE email=?", email)
-    existence = cur.fetchone()
+        cur.execute("SELECT email FROM users WHERE email=?", (email,))
 
-    if existence:
-        availability = False
-
-    return availability
+        if cur.fetchone():
+            return jsonify({"available": False})
+        else:
+            return jsonify({"available": True})

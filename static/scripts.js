@@ -59,14 +59,44 @@ const email_validate = () => {
     const email = emailEl.value;
 
     if (!isValidEmail(email)) {
-        showError(emailEl, "Must enter valid email.");
+        showError(emailEl, "Please enter a valid email.");
     }
     else {
         success(emailEl);
         valid = true;
     }
+
     return valid;
 }
+
+
+function email_availability(){
+    let validity = email_validate();
+    let availability;
+
+    if (validity) {
+        $.ajax({
+            type: "POST",
+            url: `/email_availability`,
+            data: {email: emailEl.value},
+            success: function(available) {
+                if (available.available) {
+                    success(emailEl);
+                    availability = true;
+                    return availability;
+                } else {
+                    availability = false;
+                    showError(emailEl, "Email already in use.");
+                    return availability;
+                }
+            }
+        })
+    }
+    else {
+        return validity;
+    }
+}
+
 
 const password_confirm = () => {
     let valid = false;
@@ -89,7 +119,7 @@ if (register_form){
 
         switch (e.target.id){
             case "email":
-                email_validate();
+                email_availability();
                 break;
             case "password":
                 password_validate();
@@ -102,33 +132,16 @@ if (register_form){
 
     register_form.addEventListener("submit", function (e){
         e.preventDefault();
+
         let password_validity = password_validate(),
-        email_validity = email_validate(),
+        email_validity = email_availability(),
         confirmed_password = password_confirm();
 
         let register_validity =  password_validity && email_validity && confirmed_password;
-        // if (register_validity) {
-        //     register_form.submit();
-        //}
-
-        //--Esto es el instant email check, vamos a ver si funciona lo tengo que probar despues pq me estoy quedando sin pila!!!!!!!
-        if (email_validity) {
-            $.ajax({
-                type: "POST",
-                url: "/check_email",
-                data: email_validate().email,
-                contentType: "aplication/json",
-                dataType: "json",
-                success: function(availability) {
-                    if (!availability) {
-                        showError(emailEl, "Email already in use.");
-                    }
-                    else if (register_validity && availability){
-                        register_form.submit();
-                    }
-                }
-            });
-        }//--
+        alert(email_validity);
+        if (register_validity) {
+            register_form.submit();
+        }
     });
 }
 
