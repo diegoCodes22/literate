@@ -3,19 +3,13 @@ const register_form = document.querySelector("#register")
 const passwordEl = document.querySelector("#password");
 const emailEl = document.querySelector("#email");
 const confirm_passwordEl = document.querySelector("#confirm_password");
-const form_button = document.querySelector("#form_button");
 
-const isBetween = (length, min, max) => length > min && length < max;
 
 const isSecurePassword = (password) => {
     const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-\.!@#\$%\^&\*])(?=.{8,})");
     return re.test(password);
 }
 
-const isAlphaNum = (str) => {
-    const re = new RegExp("^[a-zA-Z0-9]+$");
-    return re.test(str);
-}
 
 const isValidEmail = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -70,27 +64,22 @@ const email_validate = () => {
 }
 
 
-function email_availability(){
-    let validity = email_validate();
-    let availability;
-
-    if (validity) {
+function email_availability(validity, callback){
+    if (validity){
         $.ajax({
-            type: "POST",
-            url: `/email_availability`,
-            data: {email: emailEl.value},
-            success: function(available) {
-                if (available.available) {
-                    success(emailEl);
-                    availability = true;
-                    return availability;
-                } else {
-                    availability = false;
-                    showError(emailEl, "Email already in use.");
-                    return availability;
-                }
+        type: "POST",
+        url: `/email_availability`,
+        data: {email: emailEl.value},
+        success: function(available) {
+            if (available.available) {
+                success(emailEl);
+                callback(true);
+            } else {
+                showError(emailEl, "Email already in use.");
+                callback(false);
             }
-        })
+        }
+    })
     }
     else {
         return validity;
@@ -119,7 +108,7 @@ if (register_form){
 
         switch (e.target.id){
             case "email":
-                email_availability();
+                email_availability(email_validate(), (availability) => {});
                 break;
             case "password":
                 password_validate();
@@ -134,11 +123,15 @@ if (register_form){
         e.preventDefault();
 
         let password_validity = password_validate(),
-        email_validity = email_availability(),
         confirmed_password = password_confirm();
 
-        let register_validity =  password_validity && email_validity && confirmed_password;
+        let email_validity;
+        email_availability(email_validate(), (availability) => {
+            email_validity = availability;
+        });
+
         alert(email_validity);
+        let register_validity =  password_validity && email_validity && confirmed_password;
         if (register_validity) {
             register_form.submit();
         }
