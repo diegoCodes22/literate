@@ -126,15 +126,14 @@ if (register_form){
         confirmed_password = password_confirm();
 
         let email_validity;
+
         email_availability(email_validate(), (availability) => {
             email_validity = availability;
+            let register_validity =  password_validity && email_validity && confirmed_password;
+            if (register_validity) {
+                register_form.submit();
+            }
         });
-
-        alert(email_validity);
-        let register_validity =  password_validity && email_validity && confirmed_password;
-        if (register_validity) {
-            register_form.submit();
-        }
     });
 }
 
