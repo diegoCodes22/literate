@@ -47,7 +47,7 @@ def login():
     login_error = ""
 
     if request.method == "POST":
-        cur.execute("SELECT * FROM users WHERE email=?", (request.form.get("email"), ))
+        cur.execute("SELECT * FROM users WHERE email=?", (request.form.get("email").lower(), ))
         user = cur.fetchone()
 
         if user is None:
@@ -78,7 +78,7 @@ def register():
     if request.method == "POST":
 
         password_hash = generate_password_hash(request.form.get("password"))
-        email = request.form.get("email")
+        email = request.form.get("email").lower()
 
         cur.execute('INSERT INTO users (email, password_hash) VALUES(?, ?)',
                     (email, password_hash))
@@ -93,9 +93,8 @@ def register():
 @app.route("/email_availability", methods=["POST"])
 def email_availability():
     if request.method == "POST":
-        email = request.form.get("email")
 
-        cur.execute("SELECT email FROM users WHERE email=?", (email,))
+        cur.execute("SELECT email FROM users WHERE email=?", (request.form.get("email").lower(),))
 
         if cur.fetchone():
             return jsonify({"available": False})
