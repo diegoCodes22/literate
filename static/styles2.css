@@ -21,7 +21,6 @@ body {
 }
 .mb-3 {
     margin-bottom: 3vmin;
-    /*margin-bottom: 1em;*/
 }
 
 .form-field {
@@ -34,7 +33,6 @@ body {
 
 .form-field input {
     border: solid 4px #ffffff
-
 }
 
 .form-div input:focus {
@@ -104,4 +102,231 @@ body {
     border-radius: 5px;
     color: white;
     border: none;
+}
+.btn-primary:hover {
+    cursor: pointer;
+}
+
+#login_register {
+    font-size: 2.5vmin;
+}
+#login_register a {
+    color: blue;
+    text-decoration: none;
+}
+#login_register a:hover {
+    text-decoration: underline;
+}
+
+#no-session {
+    margin-left: 5vmin;
+}
+#no-session-content {
+    margin-left: 8vmin;
+}
+
+/*From here down website is not responsive (static)*/
+
+#dashboard-header-div {
+    display: flex;
+    margin-top: 60px;
+    justify-content: space-between;
+}
+#dashboard-header-div h1 {
+    margin-top: 0;
+    font-size: 38px;
+}
+#dashboard-header-div button {
+    border-radius: 15px;
+    width: 160px;
+    height: 50px;
+}
+#dashboard-header-div a {
+    text-decoration: none;
+    color: white;
+}
+
+#dashboard-stats{
+    display: flex;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+#dashboard-stats div button{
+    border-radius: 25px;
+    border: 10px;
+    width: 267px;
+    height: 90px;
+}
+.deck {
+    margin-top: 60px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 20px;
+    width: 42%;
+    height: 230px;
+}
+
+.deck-more {
+    margin: 0;
+    height: 50px;
+}
+.deck-more svg {
+    margin: 0 0 0 240px;
+    fill: lightgray;
+}
+.deck-more svg:hover {
+    cursor: pointer;
+}
+
+.deck-name{
+    margin: -8px 0 0 20px;
+}
+.deck-name a {
+    text-decoration: none;
+    color: black;
+}
+.deck-name a div h2{
+    margin-bottom: 0;
+}
+.deck-name a p {
+    margin-top: 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 28px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+input:checked + .slider {
+  background-color: #2196F3;
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.deck-state{
+    position: relative;
+}
+.deck-state label{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-top: 35px;
+}
+.container {
+    margin: 0 180px 0 150px;
+}
+
+.field-input {
+    height: 38px;
+    width: 100%;
+    font-size: 25px;
+}
+
+.deck-creator {
+    margin-top: 35px;
+    border: 0.5px solid gray;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.deck-info {
+    margin: 8px;
+}
+
+.word-def {
+    display: block;
+
+}
+.word-def .word {
+    display: inline-block;
+    width: 55%;
+}
+.word-def .def {
+    display: inline-block;
+    width: 44%;
+}
+
+.bolder {
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.deck-create input{
+    border-radius: 8px;
+    margin-top: -12px;
+}
+
+.example {
+    margin-top: 30px;
+}
+.deck-create input, input::placeholder {
+    font-size: 14px;
+}
+.deck-create input:focus{
+    outline: none;
+}
+.deck-create input:hover {
+    border: 2px solid black;
+}
+
+.close {
+    float:right;
+}
+
+.del-card {
+    margin-left: 95%;
+    margin-top: 10px;
+}
+.del-card:hover, .close:hover {
+    color: slategrey;
+}
+
+.deck-info {
+    margin-top: -38px;
+}
+
+#add-card-btn{
+    margin-top: 20px;
+}
+#add-card {
+    font-size: 25px;
+    margin-left: 83%;
+}
+
+#Capa_1 {
+    float: right;
 }

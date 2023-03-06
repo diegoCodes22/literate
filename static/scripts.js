@@ -3,7 +3,7 @@ const register_form = document.querySelector("#register")
 const passwordEl = document.querySelector("#password");
 const emailEl = document.querySelector("#email");
 const confirm_passwordEl = document.querySelector("#confirm_password");
-
+const add_card_btn_El = document.querySelector("#add-card-btn");
 
 const isSecurePassword = (password) => {
     const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-\.!@#\$%\^&\*])(?=.{8,})");
@@ -163,3 +163,7 @@ if (login_form) {
         }
     });
 }
+
+add_card_btn_El.addEventListener("click", function () {
+    add_card_btn_El.insertBefore()
+})

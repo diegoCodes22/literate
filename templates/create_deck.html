@@ -1,0 +1,55 @@
+{% extends "layout2.html" %}
+{% block title %}
+  Create Deck
+{% endblock %}
+
+{% block main %}
+<div class="container deck-create">
+  <form action="">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-x close"
+         viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+    <div>
+      <div>
+        <h2>Create a deck</h2>
+      </div>
+      <div>
+        <p>Deck name *</p>
+        <label>
+          <span><input type="text" id="deck-name" class="field-input"></span>
+        </label>
+      </div>
+      <fieldset class="deck-creator">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x del-card" viewBox="0 0 16 16"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+        </div>
+        <div class="deck-info">
+          <div class="word-def">
+            <div class="word">
+              <p class="bolder">Word *</p>
+              <label>
+                <span><input type="text" class="field-input" placeholder="Type here"></span>
+              </label>
+            </div>
+            <div class="def">
+              <p class="bolder">Definition *</p>
+              <label>
+                <span><input type="text" class="field-input" placeholder="Type here"></span>
+              </label>
+            </div>
+          </div>
+          <div class="example">
+            <p class="bolder">Example</p>
+            <label>
+              <span><input type="text" class="field-input" placeholder="Type here"></span>
+            </label>
+          </div>
+        </div>
+      </fieldset>
+      <div id="add-card-btn">
+        <a id="add-card">Add card</a>
+        <svg fill="#c0c0c0" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30px" height="30px" viewBox="0 0 316.51 316.51" xml:space="preserve" stroke="#c0c0c0" stroke-width="0.00316513"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="7.596311999999999"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M158.253,0C71,0,0.012,71.001,0.012,158.263c0,87.256,70.989,158.25,158.241,158.25 c87.259,0,158.248-70.994,158.248-158.25C316.501,71.001,245.518,0,158.253,0z M230.891,177.982h-57.748v52.914 c0,7.428-4.864,13.438-12.301,13.438c-7.422,0-12.298-6.017-12.298-13.438v-52.914H85.634c-7.44,0-13.454-4.864-13.454-12.298 s6.014-12.301,13.454-12.301h62.909V85.616c0-7.434,4.876-13.453,12.298-13.453c7.437,0,12.301,6.02,12.301,13.453v67.768h57.748 c7.439,0,13.456,4.867,13.456,12.301S238.33,177.982,230.891,177.982z"></path> </g> </g></svg>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -5,7 +5,37 @@
 {% endblock %}
 
 {% block main %}
-    <div>
-    
+    <div class="container">
+      <div id="dashboard-header-div">
+        <h1>Dashboard</h1>
+        <button class="btn-primary">+ <a href="/create_deck"> New deck</a></button>
+      </div>
+      <div id="dashboard-stats">
+        <div id="streaks"><button>Streaks {{streaks}}</button></div>
+        <div id="total-words"><button>Words {{total_words}}</button></div>
+        <div id="words-mastered"><button>Mastered {{words_mastered}}</button></div>
+      </div>
+      
+      <div class="deck">
+          <div class="deck-more">
+            <svg height="50" width="100">
+              <circle cx="60" cy="35" r="15" stroke="black" stroke-width="0.5"/>
+            </svg>
+          </div>
+          <div class="deck-name">
+            <a href="">
+              <div>
+                <h2>Card name</h2>
+              </div>
+              <p><small>14 words</small></p>
+            </a>
+          </div>
+          <div class="deck-state">
+            <label class="switch">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </div>
+      </div>
     </div>
 {% endblock %}

@@ -100,3 +100,9 @@ def email_availability():
             return jsonify({"available": False})
         else:
             return jsonify({"available": True})
+
+
+@app.route("/create_deck")
+@login_required
+def create_deck():
+    return render_template("create_deck.html")

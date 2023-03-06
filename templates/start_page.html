@@ -4,5 +4,27 @@
     Flash cards by Diego
 {% endblock %}
 
-{% block main %}
+{% block noSession %}
+<div>
+  <h1>Discover a new way of learning.</h1>
+  <h1>Become literate in any subject of your choosing.</h1>
+  <h2>How to use literate</h2>
+  <ol>
+    <li>Choose a subject or create your own deck</li>
+    <!--Add a small "sublist" with some text like: Add your own vocabulary or choose from the wide
+    variety of decks created by literate or other passionate learners like yourself.-->
+    <li>Practice it &#49;</li>
+    <!--Practice on web or mobile app, and receive notifications when it's time to practice.-->
+    <li>Become literate</li>
+    <!--Once out algorithms are confident that you've learned the vocabulary, it will be marked as Literate.-->
+  </ol>
+  <h2>How will literate help you?</h2>
+  <ul>
+    <li>Practice any topic of your choosing in a user-friendly app</li>
+    <li>Understand other people when talking about subjects which you are unfamiliar with</li> <!--Hacer mas corto-->
+    <!--Add at least 1 more and max 3 more-->
+  </ul>
+  <a href="/register"><button class="btn-primary">Register</button></a>
+  <p id="login_register">or <a href="/login">Log In</a></p>
+</div>
 {% endblock %}

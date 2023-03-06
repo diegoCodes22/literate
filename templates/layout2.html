@@ -10,32 +10,44 @@
   <title>Literate: {% block title %}{% endblock %}</title>
 </head>
 <body class="off-white">
-  <div class="vertical-nav grid-container">
-      <div class="grid-item grid-item-nav">
-        <a href="/static" class="brand">Literate</a>
-        {% if session["user_id"] %}
-          <ul class="nav-list">
-              <li class="nav-content"><a href="/static" class="nav-links">Dashboard</a></li>
-              <li class="nav-content"><a href="/create_deck" class="nav-links">Create deck</a></li>
-              <li class="nav-content"><a href="/practice" class="nav-links">Practice</a></li>
-              <li class="nav-content"><a href="/find_decks" class="nav-links">Find other decks</a></li>
-              <li class="nav-content"><a href="/logout" class="nav-links">Log Out</a></li>
-          </ul>
-        {% else %}
-          <ul class="nav-list">
-            <li class="nav-content"><a href="/login" class="nav-links">Log In</a></li>
-            <li class="nav-content"><a href="/register" class="nav-links">Register</a></li>
-          </ul>
-      </div>
-        {% endif %}
-      <div class="grid-item grid-item-content off-white">
-        <main>
-          {% block main %}
-  
+  {% if session["user_id"] %}
+    <div class="vertical-nav grid-container">
+        <div class="grid-item grid-item-nav">
+          <a href="/" class="brand">Literate</a>
+            <ul class="nav-list">
+                <li class="nav-content"><a href="/" class="nav-links">Dashboard</a></li>
+                <li class="nav-content"><a href="/create_deck" class="nav-links">Create deck</a></li>
+                <li class="nav-content"><a href="/practice" class="nav-links">Practice</a></li>
+                <li class="nav-content"><a href="/find_decks" class="nav-links">Find other decks</a></li>
+                <li class="nav-content"><a href="/logout" class="nav-links">Log Out</a></li>
+            </ul>
+           <!-- <ul class="nav-list">
+              <li class="nav-content"><a href="/login" class="nav-links">Log In</a></li>
+              <li class="nav-content"><a href="/register" class="nav-links">Register</a></li>
+            </ul>-->
+        </div>
+        <div class="grid-item grid-item-content off-white">
+          <main>
+            {% block main %}
+    
+            {% endblock %}
+          </main>
+        </div>
+    </div>
+  {% else %}
+    <div class="grid-item grid-item-content off-white">
+      <main id="no-session">
+        <div>
+          <a href="/" class="brand">Literate</a>
+        </div>
+        <div id="no-session-content">
+          {% block noSession %}
+          
           {% endblock %}
-        </main>
-      </div>
-  </div>
+        </div>
+      </main>
+    </div>
+  {% endif %}
     <script type="text/javascript" src="../static/scripts.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 </body>
