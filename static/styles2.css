@@ -6,9 +6,63 @@ default font size 16px
     box-sizing: border-box;
 }
 
+@media (max-width: 880px) {
+    .grid-container {
+        width: 100%;
+        height: 100%;
+        grid-template-columns: 100% !important;
+        grid-template-rows: 100% !important;
+        overflow: auto;
+    }
+    .grid-item-nav {
+        display: flex;
+        flex-direction: row;
+        position: fixed;
+        bottom: 0;
+        z-index: 3;
+        width: 100%;
+        grid-area: 1 / 1 / 1 / 1;
+        text-align: center;
+    }
+    .grid-item-content {
+        width: 100%;
+        height: auto;
+        grid-area: 1 / 1 / 1 / 1;
+    }
+    .brand {
+        display: none;
+    }
+    .nav-list {
+        width: 100%;
+        background-color: #fff;
+        padding: 0 0 !important;
+        margin: auto auto 0 auto;
+    }
+    .nav-list li{
+        height: 5rem;
+        display: inline-block;
+    }
+    .nav-list li a {
+        padding-left: 2.5rem;
+        font-size: 1.2rem;
+    }
+    #dashboard-header-div {
+        margin-left: -1.4rem !important;
+    }
+}
+
 body {
     font-family: Papyrus, cursive !important;
     margin: 0;
+}
+
+main {
+    height: 100%;
+}
+
+.container {
+    margin: 0 12% 0 12%;
+    height: 100%;
 }
 
 .off-white {
@@ -19,20 +73,22 @@ body {
     text-align: center;
     justify-content: center;
 }
+
 .mb-3 {
-    margin-bottom: 3vmin;
+    margin-bottom: 1rem;
 }
 
 .form-field {
-    font-size: 3vmin;
+    font-size: 1.8rem;
+    border-radius: 5px;
+}
+.form-field:hover {
+    cursor: pointer;
+    border: 2px solid black;
 }
 
 #login_button{
     text-align: center;
-}
-
-.form-field input {
-    border: solid 4px #ffffff
 }
 
 .form-div input:focus {
@@ -59,8 +115,6 @@ body {
 }
 
 .vertical-nav {
-    /*width: 20%;
-    height: 100%;*/
     background-color: white !important;
     position: fixed;
 }
@@ -69,14 +123,18 @@ body {
     display: grid;
     width: 100%;
     grid-template-columns: 0.5fr 2fr;
-    grid-template-rows: 100vh auto;
+    grid-template-rows: 100vh 100%;
     resize: horizontal;
     overflow: auto;
 }
 
 .grid-item-nav {
     width: 100%;
-    overflow-clip-margin: 10px;
+    overflow-clip-margin: 0;
+}
+.grid-item-content {
+    width: 100%;
+    overflow: auto;
 }
 
 .nav-list {
@@ -95,9 +153,9 @@ body {
 }
 
 .btn-primary {
-    font-size: 2.5vmin;
-    width: 15vmin;
-    height: 4.7vmin;
+    font-size: 1.3rem;
+    width: 8rem;
+    height: 2.8rem;
     background-color: rgb(36, 110, 250);
     border-radius: 5px;
     color: white;
@@ -108,7 +166,7 @@ body {
 }
 
 #login_register {
-    font-size: 2.5vmin;
+    font-size: 1.5rem;
 }
 #login_register a {
     color: blue;
@@ -119,27 +177,31 @@ body {
 }
 
 #no-session {
-    margin-left: 5vmin;
+    margin-left: 2.5rem;
 }
+
 #no-session-content {
-    margin-left: 8vmin;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    overflow: auto;
 }
 
-/*From here down website is not responsive (static)*/
-
-#dashboard-header-div {
+#dashboard-header-div {;
     display: flex;
-    margin-top: 60px;
+    margin: 3rem 0 0 0;
     justify-content: space-between;
 }
 #dashboard-header-div h1 {
     margin-top: 0;
-    font-size: 38px;
+    font-size: 2.4rem;
 }
-#dashboard-header-div button {
+#dashboard-btn {
+    padding-left: .3rem;
+}
+#dashboard-header-div div button {
     border-radius: 15px;
-    width: 160px;
-    height: 50px;
+    width: 9.7rem;
+    height: 3.3rem;
 }
 #dashboard-header-div a {
     text-decoration: none;
@@ -148,30 +210,40 @@ body {
 
 #dashboard-stats{
     display: flex;
-    margin-top: 30px;
+    margin-top: 2rem;
     justify-content: space-between;
 }
-#dashboard-stats div button{
-    border-radius: 25px;
-    border: 10px;
-    width: 267px;
-    height: 90px;
+.stat-box {
+    border-radius: 15px;
+    width: 15rem;
+    height: 5rem;
+    background-color: white;
+    border: 1px solid black;
+    text-align: center;
+    padding-top: 1rem;
+}
+
+.decks {
+    height: 100%;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, .5fr));
+    column-gap: 2rem;
+    grid-template-rows: repeat(auto-fit, 16.6rem);
 }
 .deck {
-    margin-top: 60px;
-    box-sizing: border-box;
+    margin-top: 3rem;
     border: 1px solid black;
     border-radius: 20px;
-    width: 42%;
-    height: 230px;
+    background-color: white;
 }
 
 .deck-more {
     margin: 0;
-    height: 50px;
+    height: 3rem;
 }
 .deck-more svg {
-    margin: 0 0 0 240px;
+    display: block;
+    margin: -.1rem 0.5rem 0 auto;
     fill: lightgray;
 }
 .deck-more svg:hover {
@@ -179,7 +251,9 @@ body {
 }
 
 .deck-name{
-    margin: -8px 0 0 20px;
+    text-align: initial;
+    justify-content: initial;
+    margin: -.5rem 0 0 1rem;
 }
 .deck-name a {
     text-decoration: none;
@@ -192,6 +266,8 @@ body {
     margin-top: 0;
 }
 
+/*Slider has units in px, but it should be in % or rem. It is not responsive.*/
+/*Or maybe it is not necessary*/
 .switch {
     position: relative;
     display: inline-block;
@@ -238,33 +314,31 @@ input:checked + .slider:before {
 
 .deck-state{
     position: relative;
+
 }
 .deck-state label{
     position: absolute;
     top: 0;
     right: 0;
-    margin-right: 10px;
-    margin-top: 35px;
-}
-.container {
-    margin: 0 180px 0 150px;
+    margin-right: 1rem;
+    margin-top: 2rem;
 }
 
 .field-input {
-    height: 38px;
+    height: 2.5rem;
     width: 100%;
-    font-size: 25px;
+    font-size: 1.6rem;
 }
 
-.deck-creator {
-    margin-top: 35px;
-    border: 0.5px solid gray;
+.card {
+    margin-top: 2.3rem;
+    border: .5px solid gray;
     background-color: white;
     border-radius: 20px;
 }
 
 .deck-info {
-    margin: 8px;
+    margin: .5rem;
 }
 
 .word-def {
@@ -282,19 +356,19 @@ input:checked + .slider:before {
 
 .bolder {
     font-weight: 800;
-    font-size: 20px;
+    font-size: 1.3rem;
 }
 
 .deck-create input{
     border-radius: 8px;
-    margin-top: -12px;
+    margin-top: -.8rem;
 }
 
 .example {
-    margin-top: 30px;
+    margin-top: 1.8rem;
 }
 .deck-create input, input::placeholder {
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 .deck-create input:focus{
     outline: none;
@@ -308,25 +382,25 @@ input:checked + .slider:before {
 }
 
 .del-card {
-    margin-left: 95%;
-    margin-top: 10px;
+    display: block;
+    margin: 0.7rem 0.5rem 0 auto;
 }
 .del-card:hover, .close:hover {
+    cursor: pointer;
     color: slategrey;
 }
 
 .deck-info {
-    margin-top: -38px;
+    margin-top: -2.5rem;
 }
 
 #add-card-btn{
-    margin-top: 20px;
+    margin-top: 1.5rem;
+}
+#Capa_1 {
+    float: right;
 }
 #add-card {
-    font-size: 25px;
-    margin-left: 83%;
-}
-
-#Capa_1 {
+    font-size: 1.7rem;
     float: right;
 }
