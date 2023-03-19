@@ -3,7 +3,15 @@ const register_form = document.querySelector("#register")
 const passwordEl = document.querySelector("#password");
 const emailEl = document.querySelector("#email");
 const confirm_passwordEl = document.querySelector("#confirm_password");
-const add_card_btn_El = document.querySelector("#add-card-btn");
+const add_card_El = document.querySelector("#add-card");
+const cards_El = document.querySelector("#cards");
+const more_menu_link_El = document.querySelector("#more-menu-link");
+const more_menu_El = document.querySelector("#more-menu");
+const close_El = document.querySelector(".close");
+const modal_El = document.querySelector(".modal");
+const leave_create = document.querySelector("#leave-create");
+const stay_create = document.querySelector("#stay-create");
+
 
 const isSecurePassword = (password) => {
     const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-\.!@#\$%\^&\*])(?=.{8,})");
@@ -164,6 +172,79 @@ if (login_form) {
     });
 }
 
-add_card_btn_El.addEventListener("click", function () {
-    add_card_btn_El.insertBefore()
+
+more_menu_link_El.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (more_menu_El.style.display === "none"){
+        more_menu_El.style.display = "block";
+    }
+    else {
+        more_menu_El.style.display = "none";
+    }
+});
+
+
+add_card_El.addEventListener("click", function () {
+    let card = document.createElement("fieldset");
+    card.classList.add("card");
+    card.innerHTML = `<div class="del-card">
+            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x del-card"
+                 viewBox="0 0 16 16">
+              <path
+                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+          </div>
+          <div class="deck-info">
+            <div class="word-def">
+              <div class="word">
+                <p class="bolder">Word *</p>
+                <label>
+                  <span><input type="text" class="field-input" placeholder="Type here"></span>
+                </label>
+              </div>
+              <div class="def">
+                <p class="bolder">Definition *</p>
+                <label>
+                  <span><input type="text" class="field-input" placeholder="Type here"></span>
+                </label>
+              </div>
+            </div>
+            <div class="example">
+              <p class="bolder">Example</p>
+              <label>
+                <span><input type="text" class="field-input" placeholder="Type here"></span>
+              </label>
+            </div>
+          </div>`;
+    cards_El.appendChild(card);
+});
+
+
+cards_El.addEventListener("click", function (e) {
+    if (e.target.classList.contains("del-card")) {
+        e.target.parentElement.parentElement.remove();
+    }
+});
+
+
+close_El.addEventListener("click", function () {
+    modal_El.showModal();
 })
+
+
+leave_create.addEventListener("click", function (e) {
+    e.preventDefault();
+
+});
+
+
+stay_create.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal_El.close();
+});
+
+
+document.querySelector("#dashboard-button").addEventListener("click", () => {
+    alert("clicked");
+    window.location.href = "/create_deck";
+});
