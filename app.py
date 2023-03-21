@@ -20,6 +20,21 @@ conn.row_factory = sqlite3.Row
 cur = conn.cursor()
 
 
+@login_required
+def dashboard_deck_info():
+    user_id = session["user_id"]
+    decks = cur.execute("SELECT * FROM decks WHERE user_id=?", (user_id,))
+    decks = cur.fetchall()
+    decks_list = []
+    for deck in decks:
+        dict(deck)
+        deck_info = json.loads(deck["deck_info"])
+        x = {"deck_name": deck["deck_name"], "word_count": len(deck_info["word"]),
+             "deck_id": deck["deck_id"]}
+        decks_list.append(x)
+    return decks_list
+
+
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -32,7 +47,32 @@ def after_request(response):
 @app.route("/", methods=["POST", "GET"])
 @login_required
 def index():
-    return render_template("dashboard.html")
+    user_id = session["user_id"]
+
+    if request.method == "POST":
+        community_share = "Private"
+        access_list = None
+
+        deck_info = request.form.to_dict(flat=False)
+        deck_name = deck_info['deck-name'][0]
+
+        try:
+            if deck_info["community-share"][0] == "on":
+                community_share = "Public"
+                del deck_info["community-share"]
+        except KeyError:
+            access_list = [user_id]
+
+        del deck_info['save-changes']
+
+        cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) VALUES(?, ?, ?, ?, ?)",
+                    (user_id, deck_name, json.dumps(deck_info), community_share, json.dumps(access_list)))
+        conn.commit()
+
+        return render_template("dashboard.html", decks_list=dashboard_deck_info())
+
+    else:
+        return render_template("dashboard.html", decks_list=dashboard_deck_info())
 
 
 @app.route("/start_page")
@@ -106,3 +146,39 @@ def email_availability():
 @login_required
 def create_deck():
     return render_template("create_deck.html")
+
+
+@app.route("/edit", methods=["POST", "GET"])
+@login_required
+def edit_deck():
+    deck_id = request.args.get("deck_id")
+    user_id = session["user_id"]
+    community_share = "Private"
+    if request.method == "POST":
+        deck_info = request.form.to_dict(flat=False)
+        deck_name = deck_info['deck-name'][0]
+
+        try:
+            if deck_info["community-share"][0] == "on":
+                community_share = "Public"
+        except KeyError:
+            pass
+
+        del deck_info['save-changes']
+
+        cur.execute("UPDATE decks SET deck_name=?, deck_info=?, access=? WHERE deck_id=?",
+                    (deck_name, json.dumps(deck_info), community_share, deck_id))
+        conn.commit()
+
+        return render_template("dashboard.html", decks_list=dashboard_deck_info())
+    else:
+        cur.execute("SELECT * FROM decks WHERE deck_id=?", (deck_id,))
+        deck = cur.fetchone()
+        deck = dict(deck)
+        deck_info = json.loads(deck["deck_info"])
+        word_def_ex = zip(deck_info["word"], deck_info["definition"], deck_info["example"])
+        if deck["access"] == "Public":
+            access = 1
+        else:
+            access = 0
+        return render_template("edit.html", deck_info=word_def_ex, deck_name=deck["deck_name"], access=access)

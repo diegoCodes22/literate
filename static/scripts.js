@@ -199,20 +199,20 @@ add_card_El.addEventListener("click", function () {
               <div class="word">
                 <p class="bolder">Word *</p>
                 <label>
-                  <span><input type="text" class="field-input" placeholder="Type here"></span>
+                  <span><input name="word" type="text" class="field-input" placeholder="Type here"></span>
                 </label>
               </div>
               <div class="def">
                 <p class="bolder">Definition *</p>
                 <label>
-                  <span><input type="text" class="field-input" placeholder="Type here"></span>
+                  <span><input name="definition" type="text" class="field-input" placeholder="Type here"></span>
                 </label>
               </div>
             </div>
             <div class="example">
               <p class="bolder">Example</p>
               <label>
-                <span><input type="text" class="field-input" placeholder="Type here"></span>
+                <span><input name="example" type="text" class="field-input" placeholder="Type here"></span>
               </label>
             </div>
           </div>`;
@@ -234,7 +234,7 @@ close_El.addEventListener("click", function () {
 
 leave_create.addEventListener("click", function (e) {
     e.preventDefault();
-
+    window.location.href = "/";
 });
 
 

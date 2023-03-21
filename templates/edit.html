@@ -1,7 +1,7 @@
 {% extends "layout2.html" %}
 
 {% block title %}
-  Create Deck
+    Edit Deck
 {% endblock %}
 
 {% block main %}
@@ -26,13 +26,17 @@
       <div>
         <p>Deck name *</p>
         <label>
-          <span><input type="text" id="deck-name" name="deck-name" class="field-input"></span>
+          <span><input type="text" id="deck-name" name="deck-name" class="field-input" value="{{deck_name}}"></span>
         </label>
       </div>
       <div id="share-save">
         <div id="share">
           <label class="switch">
+            {% if access == 0 %}
               <input type="checkbox" id="community-share" name="community-share">
+            {% else %}
+              <input type="checkbox" id="community-share" name="community-share" checked>
+            {% endif %}
               <span class="slider round"></span>
             </label>
           <p>Share with the community</p>
@@ -42,37 +46,39 @@
         </div>
       </div>
       <div id="cards">
-        <fieldset class="card">
-          <div class="del-card">
-            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x del-card"
-                 viewBox="0 0 16 16">
-              <path
-                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-          </div>
-          <div class="deck-info">
-            <div class="word-def">
-              <div class="word">
-                <p class="bolder">Word *</p>
-                <label>
-                  <span><input name="word" type="text" class="field-input" placeholder="Type here"></span>
-                </label>
+        {% for card in deck_info %}
+          <fieldset class="card">
+            <div class="del-card">
+              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x del-card"
+                   viewBox="0 0 16 16">
+                <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+              </svg>
+            </div>
+            <div class="deck-info">
+              <div class="word-def">
+                <div class="word">
+                  <p class="bolder">Word *</p>
+                  <label>
+                    <span><input name="word" type="text" class="field-input" placeholder="Type here" value="{{card[0]}}"></span>
+                  </label>
+                </div>
+                <div class="def">
+                  <p class="bolder">Definition *</p>
+                  <label>
+                    <span><input name="definition" type="text" class="field-input" placeholder="Type here" value="{{card[1]}}"></span>
+                  </label>
+                </div>
               </div>
-              <div class="def">
-                <p class="bolder">Definition *</p>
+              <div class="example">
+                <p class="bolder">Example</p>
                 <label>
-                  <span><input name="definition" type="text" class="field-input" placeholder="Type here"></span>
+                  <span><input name="example" type="text" class="field-input" placeholder="Type here" value="{{card[2]}}"></span>
                 </label>
               </div>
             </div>
-            <div class="example">
-              <p class="bolder">Example</p>
-              <label>
-                <span><input name="example" type="text" class="field-input" placeholder="Type here"></span>
-              </label>
-            </div>
-          </div>
-        </fieldset>
+          </fieldset>
+        {% endfor %}
       </div>
     </div>
   </form>
