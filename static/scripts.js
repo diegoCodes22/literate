@@ -3,14 +3,12 @@ const register_form = document.querySelector("#register")
 const passwordEl = document.querySelector("#password");
 const emailEl = document.querySelector("#email");
 const confirm_passwordEl = document.querySelector("#confirm_password");
-const add_card_El = document.querySelector("#add-card");
 const cards_El = document.querySelector("#cards");
-const more_menu_link_El = document.querySelector("#more-menu-link");
 const more_menu_El = document.querySelector("#more-menu");
+const add_card_EL = document.querySelector("#add-card");
 const close_El = document.querySelector(".close");
-const modal_El = document.querySelector(".modal");
-const leave_create = document.querySelector("#leave-create");
-const stay_create = document.querySelector("#stay-create");
+const dashboard_button_El = document.querySelector("#dashboard-button");
+const decks_more_btn_El = document.querySelector(".deck-more-btn");
 
 
 const isSecurePassword = (password) => {
@@ -116,7 +114,7 @@ if (register_form){
 
         switch (e.target.id){
             case "email":
-                email_availability(email_validate(), (availability) => {});
+                email_availability(email_validate(), () => {});
                 break;
             case "password":
                 password_validate();
@@ -173,7 +171,7 @@ if (login_form) {
 }
 
 
-more_menu_link_El.addEventListener("click", function (e) {
+document.querySelector("#more-menu-link").addEventListener("click", function (e) {
     e.preventDefault();
     if (more_menu_El.style.display === "none"){
         more_menu_El.style.display = "block";
@@ -184,7 +182,8 @@ more_menu_link_El.addEventListener("click", function (e) {
 });
 
 
-add_card_El.addEventListener("click", function () {
+if (add_card_EL){
+    add_card_EL.addEventListener("click", function () {
     let card = document.createElement("fieldset");
     card.classList.add("card");
     card.innerHTML = `<div class="del-card">
@@ -218,33 +217,46 @@ add_card_El.addEventListener("click", function () {
           </div>`;
     cards_El.appendChild(card);
 });
+}
 
 
-cards_El.addEventListener("click", function (e) {
+if (cards_El){
+    cards_El.addEventListener("click", function (e) {
     if (e.target.classList.contains("del-card")) {
         e.target.parentElement.parentElement.remove();
     }
 });
+}
 
 
-close_El.addEventListener("click", function () {
-    modal_El.showModal();
+if (close_El){
+    close_El.addEventListener("click", function () {
+    document.querySelector(".modal").showModal();
 })
 
 
-leave_create.addEventListener("click", function (e) {
+document.querySelector("#leave-create").addEventListener("click", function (e) {
     e.preventDefault();
     window.location.href = "/";
 });
 
 
-stay_create.addEventListener("click", function (e) {
+document.querySelector("#stay-create").addEventListener("click", function (e) {
     e.preventDefault();
-    modal_El.close();
+    document.querySelector(".modal").close();
 });
+}
 
 
-document.querySelector("#dashboard-button").addEventListener("click", () => {
-    alert("clicked");
+if (dashboard_button_El){
+    dashboard_button_El.addEventListener("click", () => {
     window.location.href = "/create_deck";
 });
+}
+
+
+if (decks_more_btn_El){
+    decks_more_btn_El.addEventListener("click", function () {
+        alert("bro")
+});
+}
