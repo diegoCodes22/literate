@@ -206,13 +206,36 @@ main {
 .deck-more {
     margin: 0;
     height: 3rem;
+    position: relative;
 }
 .deck-more svg {
     display: block;
     margin: .5rem 1rem 0 auto;
 }
+.deck-more-dropdown {
+    display: none;
+    position: relative;
+    margin: 0 1rem 0 auto;
+    width: 10rem;
+    background-color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
 .deck-more svg:hover {
     cursor: pointer;
+}
+.deck-more-dropdown a {
+    font-size: 1.2rem;
+    color: black;
+    padding: .4rem .4rem;
+    text-decoration: none;
+    display: block;
+}
+.deck-more-dropdown a:hover {
+    background-color: #f1f1f1;
+}
+.deck-more-dropdown .delete-deck {
+    color: red;
 }
 
 .deck-name{

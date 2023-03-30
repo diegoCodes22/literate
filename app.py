@@ -71,8 +71,8 @@ def parse_and_action_new_deck(user_id, action, deck_hash=None):
         return 0
 
     elif action == "update" and owner_id == user_id:
-        cur.execute("UPDATE decks SET deck_name=?, deck_info=?, access=?, access_list=? WHERE user_id=? AND deck_hash=?",
-                    (deck_name, json.dumps(deck_info), community_share, json.dumps(access_list), user_id, deck_hash))
+        cur.execute("UPDATE decks SET deck_name=?, deck_info=?, access=?, access_list=? WHERE user_id=? AND deck_hash=?"
+                    , (deck_name, json.dumps(deck_info), community_share, json.dumps(access_list), user_id, deck_hash))
         conn.commit()
         return 0
 
@@ -209,3 +209,19 @@ def edit_deck():
             access = 0
         return render_template("edit.html", deck_info=word_def_ex, deck_name=deck["deck_name"], access=access,
                                deck_hash=deck_hash)
+
+
+@app.route("/delete_deck", methods=["POST", "GET"])
+@login_required
+def delete_deck():
+    if request.method == "GET":
+        deck_hash = request.args.get("deck_hash")
+        user_id = session["user_id"]
+        cur.execute("SELECT user_id FROM decks WHERE deck_hash=?", (deck_hash,))
+        owner_id = cur.fetchone()[0]
+        if owner_id == user_id:
+            cur.execute("DELETE FROM decks WHERE deck_hash=?", (deck_hash,))
+            conn.commit()
+            return render_template("dashboard.html", decks_list=dashboard_deck_info())
+        else:
+            return render_template("dashboard.html", decks_list=dashboard_deck_info())

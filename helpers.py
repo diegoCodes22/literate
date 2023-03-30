@@ -35,4 +35,11 @@ def generate_unique_id(id_number):
             return_hash += ch
         else:
             return_hash += str(ord(ch))
+
+    if id_number % 10 in [0, 3, 7, 8]:
+        return_hash += '131wa10a'
+    elif id_number % 10 in [1, 4, 5, 9]:
+        return_hash += '915la11b'
+    else:
+        return_hash += '883er12c'
     return return_hash

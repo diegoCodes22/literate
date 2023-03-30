@@ -254,9 +254,21 @@ if (dashboard_button_El){
 });
 }
 
-
 if (decks_more_btn_El){
-    decks_more_btn_El.addEventListener("click", function () {
-        alert("bro")
+    decks_more_btn_El.addEventListener("click", function (evt) {
+        evt.stopPropagation();
+        document.querySelector(".deck-more-dropdown").style.display = "block";
+        document.querySelector("body").addEventListener("click", function () {
+            document.querySelector(".deck-more-dropdown").style.display = "none";
+        });
 });
+    const copy_deck_link_El = document.querySelector(".copy-deck-link");
+    copy_deck_link_El.addEventListener("click", function (e) {
+        e.preventDefault();
+        // link = copy_deck_link_El.getAttribute("href");
+        link = copy_deck_link_El.href;
+        navigator.clipboard.writeText(link);
+        alert("Link copied to clipboard")
+    });
 }
+
