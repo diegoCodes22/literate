@@ -22,22 +22,24 @@ cur = conn.cursor()
 
 
 @login_required
-def dashboard_deck_info():
-    user_id = session["user_id"]
-    cur.execute("SELECT * FROM decks WHERE user_id=?", (user_id,))
+def parse_deck_info(user_id=None, access=None):
+    if user_id and not access:
+        cur.execute("SELECT * FROM decks WHERE user_id=?", (user_id,))
+    elif access and user_id:
+        cur.execute("SELECT * FROM decks WHERE access=? AND user_id!=?", (access, user_id))
     decks = cur.fetchall()
     decks_list = []
     for deck in decks:
         dict(deck)
         deck_info = json.loads(deck["deck_info"])
         x = {"deck_name": deck["deck_name"], "word_count": len(deck_info["word"]),
-             "deck_hash": deck["deck_hash"]}
+             "deck_hash": deck["deck_hash"], "user_id": deck["user_id"]}
         decks_list.append(x)
     return decks_list
 
 
 @login_required
-def parse_and_action_new_deck(user_id, action, deck_hash=None):
+def parse_and_action_new_deck(user_id, action, deck_hash=None, access=None):
 
     community_share = "Private"
     access_list = None
@@ -61,9 +63,14 @@ def parse_and_action_new_deck(user_id, action, deck_hash=None):
     del deck_info['save-changes']
 
     if action == "insert":
-        cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) VALUES(?, ?, ?, ?, ?)"
-                    "RETURNING deck_id",
-                    (user_id, deck_name, json.dumps(deck_info), community_share, json.dumps(access_list)))
+        if access:
+            cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) VALUES(?, ?, ?, ?, ?)"
+                        "RETURNING deck_id",
+                        (user_id, deck_name, json.dumps(deck_info), access, json.dumps(access_list)))
+        else:
+            cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) VALUES(?, ?, ?, ?, ?)"
+                        "RETURNING deck_id",
+                        (user_id, deck_name, json.dumps(deck_info), community_share, json.dumps(access_list)))
         deck_id = cur.fetchone()[0]
         deck_hash = generate_unique_id(deck_id)
         cur.execute('UPDATE decks SET deck_hash=? WHERE deck_id=?', (deck_hash, deck_id))
@@ -77,7 +84,7 @@ def parse_and_action_new_deck(user_id, action, deck_hash=None):
         return 0
 
     elif action == "update" and owner_id != user_id:
-        parse_and_action_new_deck(user_id, "insert")
+        parse_and_action_new_deck(user_id, "insert", access="Private")
         return 0
     else:
         return jsonify({"error": "Invalid action"})
@@ -102,12 +109,12 @@ def index():
         print(inserted)
 
         if inserted == 0:
-            return render_template("dashboard.html", decks_list=dashboard_deck_info())
+            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
         else:
             return inserted
 
     else:
-        return render_template("dashboard.html", decks_list=dashboard_deck_info())
+        return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
 
 
 @app.route("/start_page")
@@ -159,9 +166,6 @@ def register():
                     (email, password_hash))
         conn.commit()
 
-        # I don't know why I wrote this line, I comment it just in case
-        # cur.execute("SELECT id FROM users")
-
         return redirect("/login")
     else:
         return render_template("register.html")
@@ -196,7 +200,7 @@ def edit_deck():
 
         parse_and_action_new_deck(user_id, "update", deck_hash)
 
-        return render_template("dashboard.html", decks_list=dashboard_deck_info())
+        return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
     else:
         cur.execute("SELECT * FROM decks WHERE deck_hash=?", (deck_hash,))
         deck = cur.fetchone()
@@ -222,6 +226,14 @@ def delete_deck():
         if owner_id == user_id:
             cur.execute("DELETE FROM decks WHERE deck_hash=?", (deck_hash,))
             conn.commit()
-            return render_template("dashboard.html", decks_list=dashboard_deck_info())
+            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
         else:
-            return render_template("dashboard.html", decks_list=dashboard_deck_info())
+            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+
+
+@app.route("/find_decks", methods=["POST", "GET"])
+@login_required
+def find_other_decks():
+    if request.method == "GET":
+        user_id = session["user_id"]
+        return render_template("find_other_decks.html", decks_list=parse_deck_info(user_id=user_id, access="Public"))
