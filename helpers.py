@@ -46,3 +46,7 @@ def generate_unique_id(id_number):
     else:
         return_hash += '883er12c'
     return return_hash
+
+
+def nose():
+    pass
