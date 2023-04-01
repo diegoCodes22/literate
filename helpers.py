@@ -2,9 +2,6 @@ from functools import wraps
 from flask import redirect, session
 import inflect
 
-def git_pull_test():
-    pass
-
 
 def login_required(f):
     """
@@ -46,7 +43,3 @@ def generate_unique_id(id_number):
     else:
         return_hash += '883er12c'
     return return_hash
-
-
-def nose():
-    pass

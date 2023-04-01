@@ -44,6 +44,7 @@ def paand(user_id, action, deck_hash=None, access=None, info=None, add=None):
     # I don't think access list is necessary
     owner_id = None
 
+
     def community_share_check(deck_info_community_share):
         try:
             del deck_info['save-changes']
