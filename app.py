@@ -39,38 +39,65 @@ def parse_deck_info(user_id=None, access=None):
 
 
 @login_required
-def parse_and_action_new_deck(user_id, action, deck_hash=None, access=None):
-
-    community_share = "Private"
+def paand(user_id, action, deck_hash=None, access=None, info=None, add=None):
     access_list = None
+    # I don't think access list is necessary
+    owner_id = None
 
-    deck_info = request.form.to_dict(flat=False)
-    deck_name = deck_info['deck-name'][0]
+    def community_share_check(deck_info_community_share):
+        try:
+            del deck_info['save-changes']
+        except KeyError:
+            pass
+        try:
+            if deck_info_community_share["community-share"][0] == "on":
+                del deck_info["community-share"]
+                return "Public"
+            elif deck_info_community_share["community-share"][0] == "Private":
+                del deck_info["community-share"]
+                return "Private"
+        except KeyError:
+            # access_list = [user_id]
+            return "Private"
 
     if deck_hash:
-        cur.execute("SELECT user_id FROM decks WHERE deck_hash=?", (deck_hash,))
-        owner_id = cur.fetchone()[0]
+        cur.execute("SELECT * FROM decks WHERE deck_hash=?", (deck_hash,))
+        deck = cur.fetchone()
+        dict(deck)
+        owner_id = deck["user_id"]
+        if owner_id == user_id:
+            deck_info = request.form.to_dict(flat=False)
+        else:
+            if add == "add":
+                deck_info = request.form.to_dict(flat=False)
+            else:
+                deck_info = json.loads(deck["deck_info"])
+
+        access = community_share_check(deck_info)
+
+    elif info:
+        deck_info = info
+        access = community_share_check(deck_info)
+
     else:
-        owner_id = None
-
-    try:
-        if deck_info["community-share"][0] == "on":
-            community_share = "Public"
-            del deck_info["community-share"]
-    except KeyError:
-        access_list = [user_id]
-
-    del deck_info['save-changes']
+        deck_info = request.form.to_dict(flat=False)
+        access = community_share_check(deck_info)
 
     if action == "insert":
-        if access:
-            cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) VALUES(?, ?, ?, ?, ?)"
-                        "RETURNING deck_id",
-                        (user_id, deck_name, json.dumps(deck_info), access, json.dumps(access_list)))
+        if access == "Private":
+            if info:
+                cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) "
+                            "VALUES(?, ?, ?, ?, ?)""RETURNING deck_id",
+                            (user_id, info["deck-name"][0], json.dumps(info), access, json.dumps(access_list)))
+            else:
+                cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) "
+                            "VALUES(?, ?, ?, ?, ?)""RETURNING deck_id",
+                            (user_id, deck_info["deck-name"][0], json.dumps(deck_info), access, json.dumps(access_list))
+                            )
         else:
             cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) VALUES(?, ?, ?, ?, ?)"
                         "RETURNING deck_id",
-                        (user_id, deck_name, json.dumps(deck_info), community_share, json.dumps(access_list)))
+                        (user_id, deck_info["deck-name"][0], json.dumps(deck_info), access, json.dumps(access_list)))
         deck_id = cur.fetchone()[0]
         deck_hash = generate_unique_id(deck_id)
         cur.execute('UPDATE decks SET deck_hash=? WHERE deck_id=?', (deck_hash, deck_id))
@@ -78,13 +105,15 @@ def parse_and_action_new_deck(user_id, action, deck_hash=None, access=None):
         return 0
 
     elif action == "update" and owner_id == user_id:
-        cur.execute("UPDATE decks SET deck_name=?, deck_info=?, access=?, access_list=? WHERE user_id=? AND deck_hash=?"
-                    , (deck_name, json.dumps(deck_info), community_share, json.dumps(access_list), user_id, deck_hash))
+        cur.execute("UPDATE decks SET deck_name=?, deck_info=?, access=?, access_list=? "
+                    "WHERE user_id=? AND deck_hash=?",
+                    (deck_info["deck-name"][0], json.dumps(deck_info), access, json.dumps(access_list), user_id,
+                        deck_hash))
         conn.commit()
         return 0
-
     elif action == "update" and owner_id != user_id:
-        parse_and_action_new_deck(user_id, "insert", access="Private")
+        deck_info["community-share"] = [access]
+        paand(user_id, "insert", access="Private", info=deck_info)
         return 0
     else:
         return jsonify({"error": "Invalid action"})
@@ -105,8 +134,7 @@ def index():
     user_id = session["user_id"]
 
     if request.method == "POST":
-        inserted = parse_and_action_new_deck(user_id, "insert")
-        print(inserted)
+        inserted = paand(user_id, "insert")
 
         if inserted == 0:
             return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
@@ -193,12 +221,12 @@ def create_deck():
 @login_required
 def edit_deck():
 
-    deck_hash = request.args.get("deck_hash")
+    deck_hash = request.args.get("dsh")
     user_id = session["user_id"]
 
     if request.method == "POST":
 
-        parse_and_action_new_deck(user_id, "update", deck_hash)
+        paand(user_id, "update", deck_hash=deck_hash, add="add")
 
         return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
     else:
@@ -219,7 +247,7 @@ def edit_deck():
 @login_required
 def delete_deck():
     if request.method == "GET":
-        deck_hash = request.args.get("deck_hash")
+        deck_hash = request.args.get("dsh")
         user_id = session["user_id"]
         cur.execute("SELECT user_id FROM decks WHERE deck_hash=?", (deck_hash,))
         owner_id = cur.fetchone()[0]
@@ -237,3 +265,22 @@ def find_other_decks():
     if request.method == "GET":
         user_id = session["user_id"]
         return render_template("find_other_decks.html", decks_list=parse_deck_info(user_id=user_id, access="Public"))
+
+
+@app.route("/practice", methods=["POST", "GET"])
+@login_required
+def practice():
+    return render_template("practice.html")
+
+
+@app.route("/save_other", methods=["POST", "GET"])
+@login_required
+def save_other():
+    if request.method == "POST":
+        user_id = session["user_id"]
+        deck_hash = request.form.get("dsh")
+        insert = paand(user_id, "update", deck_hash=deck_hash, access="Private")
+        if insert == 0:
+            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+        else:
+            return insert

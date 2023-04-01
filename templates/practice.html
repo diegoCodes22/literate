@@ -1,0 +1,56 @@
+{% extends "layout3.html" %}
+
+{% block title %}
+  Practice
+{% endblock %}
+
+{% block main %}
+<div id="heading">
+  <h1>Practice makes perfect</h1>
+  <a href="/">
+    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor" class="bi bi-x"
+         id="practice-close"
+         viewBox="0 0 16 16">
+      <path
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+    </svg>
+  </a>
+</div>
+  <div id="definition" class="practice-cards">
+    <fieldset>
+      <div>
+        <span>Definition</span>
+        <span class="bolder">{palabra}</span>
+      </div>
+    </fieldset>
+  </div>
+  <div id="vocabulary" class="practice-cards">
+    <fieldset>
+      <div>
+        <span>Vocabulary</span>
+        <span class="bolder">{vocab}</span>
+        <span>{example}</span>
+      </div>
+    </fieldset>
+  </div>
+
+<div class="text-center" id="practice-btns">
+  <div>
+    <button id="reveal" class="btn-primary">Reveal</button>
+  </div>
+  <div>
+    <div>
+      <button class="btn-primary">Una X</button>
+      <br>
+      <span>I forgot</span>
+      <span>Left arrow</span>
+    </div>
+    <div>
+      <button class="btn-primary">Un check</button>
+      <br>
+      <span>I remember</span>
+      <span>Right arrow</span>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,15 +1,3 @@
-const login_form = document.querySelector("#login");
-const register_form = document.querySelector("#register")
-const passwordEl = document.querySelector("#password");
-const emailEl = document.querySelector("#email");
-const confirm_passwordEl = document.querySelector("#confirm_password");
-const cards_El = document.querySelector("#cards");
-const more_menu_El = document.querySelector("#more-menu");
-const add_card_EL = document.querySelector("#add-card");
-const close_El = document.querySelector(".close");
-const dashboard_button_El = document.querySelector("#dashboard-button");
-const decks_more_btn_El = document.querySelector(".deck-more-btn");
-
 
 const isSecurePassword = (password) => {
     const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-\.!@#\$%\^&\*])(?=.{8,})");
@@ -40,6 +28,8 @@ const success = (input) => {
     field.querySelector("small").textContent = '';
 }
 
+
+const passwordEl = document.querySelector("#password");
 const password_validate = () => {
     let valid = false;
     let password = passwordEl.value;
@@ -54,6 +44,8 @@ const password_validate = () => {
     return valid;
 }
 
+
+const emailEl = document.querySelector("#email");
 const email_validate = () => {
     let valid = false;
     const email = emailEl.value;
@@ -93,6 +85,7 @@ function email_availability(validity, callback){
 }
 
 
+const confirm_passwordEl = document.querySelector("#confirm_password");
 const password_confirm = () => {
     let valid = false;
     const password = passwordEl.value;
@@ -108,6 +101,8 @@ const password_confirm = () => {
     return valid;
 }
 
+
+const register_form = document.querySelector("#register")
 if (register_form){
     register_form.addEventListener("input", function (e){
         e.preventDefault();
@@ -143,6 +138,8 @@ if (register_form){
     });
 }
 
+
+const login_form = document.querySelector("#login");
 if (login_form) {
     login_form.addEventListener("input", function (e) {
         e.preventDefault();
@@ -171,7 +168,9 @@ if (login_form) {
 }
 
 
-document.querySelector("#more-menu-link").addEventListener("click", function (e) {
+const more_menu_El = document.querySelector("#more-menu");
+if (more_menu_El) {
+    document.querySelector("#more-menu-link").addEventListener("click", function (e) {
     e.preventDefault();
     if (more_menu_El.style.display === "none"){
         more_menu_El.style.display = "block";
@@ -180,59 +179,61 @@ document.querySelector("#more-menu-link").addEventListener("click", function (e)
         more_menu_El.style.display = "none";
     }
 });
+}
 
 
+const cards_El = document.querySelectorAll("#cards");
+const add_card_EL = document.querySelector("#add-card");
 if (add_card_EL){
     add_card_EL.addEventListener("click", function () {
-    let card = document.createElement("fieldset");
-    card.classList.add("card");
-    card.innerHTML = `<div class="del-card">
-            <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x del-card"
-                 viewBox="0 0 16 16">
-              <path
-                  d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-          </div>
-          <div class="deck-info">
-            <div class="word-def">
-              <div class="word">
-                <p class="bolder">Word *</p>
-                <label>
-                  <span><input name="word" type="text" class="field-input" placeholder="Type here"></span>
-                </label>
+        for (let cards of cards_El) {
+            cards.addEventListener("click", function (e) {
+                if (e.target.classList.contains("del-card")) {
+                    e.target.parentElement.parentElement.remove();
+                }
+            });
+        }
+        let card = document.createElement("fieldset");
+        card.classList.add("card");
+        card.innerHTML = `<div class="del-card">
+                <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" 
+                  class="bi bi-x del-card" viewBox="0 0 16 16">
+                  <path
+                      d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
               </div>
-              <div class="def">
-                <p class="bolder">Definition *</p>
-                <label>
-                  <span><input name="definition" type="text" class="field-input" placeholder="Type here"></span>
-                </label>
-              </div>
-            </div>
-            <div class="example">
-              <p class="bolder">Example</p>
-              <label>
-                <span><input name="example" type="text" class="field-input" placeholder="Type here"></span>
-              </label>
-            </div>
-          </div>`;
-    cards_El.appendChild(card);
-});
+              <div class="deck-info">
+                <div class="word-def">
+                  <div class="word">
+                    <p class="bolder">Word *</p>
+                    <label>
+                      <span><input name="word" type="text" class="field-input" placeholder="Type here"></span>
+                    </label>
+                  </div>
+                  <div class="def">
+                    <p class="bolder">Definition *</p>
+                    <label>
+                      <span><input name="definition" type="text" class="field-input" placeholder="Type here"></span>
+                    </label>
+                  </div>
+                </div>
+                <div class="example">
+                  <p class="bolder">Example</p>
+                  <label>
+                    <span><input name="example" type="text" class="field-input" placeholder="Type here"></span>
+                  </label>
+                </div>
+              </div>`;
+        cards_El[0].appendChild(card);
+    });
 }
 
 
-if (cards_El){
-    cards_El.addEventListener("click", function (e) {
-    if (e.target.classList.contains("del-card")) {
-        e.target.parentElement.parentElement.remove();
-    }
+const close_create_El = document.querySelector("#close-create");
+if (close_create_El){
+    close_create_El.addEventListener("click", function () {
+        document.querySelector(".modal").showModal();
 });
-}
-
-
-if (close_El){
-    close_El.addEventListener("click", function () {
-    document.querySelector(".modal").showModal();
-})
 
 
 document.querySelector("#leave-create").addEventListener("click", function (e) {
@@ -248,27 +249,63 @@ document.querySelector("#stay-create").addEventListener("click", function (e) {
 }
 
 
+const dashboard_button_El = document.querySelector("#dashboard-button");
 if (dashboard_button_El){
     dashboard_button_El.addEventListener("click", () => {
     window.location.href = "/create_deck";
 });
 }
 
+const decks_more_btn_El = document.querySelectorAll(".deck-more-btn");
 if (decks_more_btn_El){
-    decks_more_btn_El.addEventListener("click", function (evt) {
-        evt.stopPropagation();
-        document.querySelector(".deck-more-dropdown").style.display = "block";
-        document.querySelector("body").addEventListener("click", function () {
-            document.querySelector(".deck-more-dropdown").style.display = "none";
+    // for (let more_btn of decks_more_btn_El){
+    //     more_btn.addEventListener("click", function (evt) {
+    //         evt.stopPropagation();
+    //         this.nextElementSibling.style.display = "block";
+    //         document.querySelector("body").addEventListener("click", function () {
+    //             more_btn.nextElementSibling.style.display = "none";
+    //         });
+    //     });
+    // }
+    for (let i = 0; i < decks_more_btn_El.length; i++){
+        decks_more_btn_El[i].addEventListener("click", function (e) {
+            e.stopPropagation();
+            this.nextElementSibling.style.display = "block";
+            document.querySelector("body").addEventListener("click", function () {
+                decks_more_btn_El[i].nextElementSibling.style.display = "none";
+            });
         });
-});
+    }
+
     const copy_deck_link_El = document.querySelector(".copy-deck-link");
-    copy_deck_link_El.addEventListener("click", function (e) {
+    if (copy_deck_link_El) {
+        copy_deck_link_El.addEventListener("click", function (e) {
         e.preventDefault();
-        // link = copy_deck_link_El.getAttribute("href");
         link = copy_deck_link_El.href;
         navigator.clipboard.writeText(link);
         alert("Link copied to clipboard")
     });
+    }
 }
 
+
+const save_other_El = document.querySelectorAll("a[href='/save_other']");
+if (save_other_El) {
+    for (let i = 0; i < save_other_El.length; i++) {
+        save_other_El[i].addEventListener("click", function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/save_other",
+                type: "POST",
+                data: {'dsh': save_other_El[i].id},
+                success: function (response) {
+                    save_other_El[i].innerHTML = "Saved";
+                    save_other_El[i].style.backgroundColor = "slategray";
+                    save_other_El[i].style.color = "white";
+                    save_other_El[i].style.border = "none";
+                    save_other_El[i].style.cursor = "default";
+                }
+            });
+        });
+    }
+}

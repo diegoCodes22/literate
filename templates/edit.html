@@ -1,4 +1,4 @@
-{% extends "layout2.html" %}
+{% extends "layout3.html" %}
 
 {% block title %}
     Edit Deck
@@ -7,8 +7,9 @@
 {% block main %}
 <div class="container deck-create">
   <form action="/" method="post">
-    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-x close"
-         viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+         class="bi bi-x close" id="close-create" viewBox="0 0 16 16">
+      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
     <dialog class="modal">
       <div>
         <h2>Are you sure you want to leave?</h2>
@@ -42,14 +43,14 @@
           <p>Share with the community</p>
         </div>
         <div id="save">
-          <button class="btn-primary" id="save-changes" name="save-changes" formaction="/edit?deck_hash={{deck_hash}}">Save changes</button>
+          <button class="btn-primary" id="save-changes" name="save-changes" formaction="/edit?dsh={{deck_hash}}">Save changes</button>
         </div>
       </div>
       <div id="cards">
         {% for card in deck_info %}
           <fieldset class="card">
             <div class="del-card">
-              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-x del-card"
+              <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-x del-card"
                    viewBox="0 0 16 16">
                 <path
                     d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>

@@ -542,3 +542,64 @@ input:checked + .slider:before {
     cursor: pointer;
     background-color: rgb(30, 100, 220);
 }
+
+#heading {
+    margin: 3rem 0 0 9rem;
+    display: flex;
+    justify-content: space-between;
+}
+#heading h1 {
+    font-size: 2.5rem;
+}
+#heading a {
+    text-decoration: none;
+    color: black;
+}
+#practice-close {
+    float: right;
+    margin-top: 2rem;
+    margin-right: 12rem;
+}
+#practice-close:hover {
+    cursor: pointer;
+    color: slategrey;
+}
+
+.practice-cards {
+    margin: 8rem 25% 0 auto;
+    width: 50%;
+    height: 15rem;
+}
+
+.practice-cards fieldset{
+    height: inherit;
+    border-radius: 20px;
+    background-color: white;
+    border: .5px solid gray;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
+}
+.practice-cards fieldset div {
+    margin-top: 2rem;
+    margin-left: 2.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.practice-cards fieldset div span {
+    display: inline-block;
+    padding-bottom: 2rem;
+}
+
+#vocabulary {
+    margin-top: 5rem;
+}
+
+#practice-btns {
+    margin-top: 4rem;
+}
+
+#reveal {
+    width: 50%;
+    height: 3.7rem;;
+    border-radius: 23px;
+    font-size: 1.6rem;
+}
