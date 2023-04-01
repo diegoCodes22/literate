@@ -2,6 +2,9 @@ from functools import wraps
 from flask import redirect, session
 import inflect
 
+def git_pull_test():
+    pass
+
 
 def login_required(f):
     """
