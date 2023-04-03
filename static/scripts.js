@@ -258,15 +258,6 @@ if (dashboard_button_El){
 
 const decks_more_btn_El = document.querySelectorAll(".deck-more-btn");
 if (decks_more_btn_El){
-    // for (let more_btn of decks_more_btn_El){
-    //     more_btn.addEventListener("click", function (evt) {
-    //         evt.stopPropagation();
-    //         this.nextElementSibling.style.display = "block";
-    //         document.querySelector("body").addEventListener("click", function () {
-    //             more_btn.nextElementSibling.style.display = "none";
-    //         });
-    //     });
-    // }
     for (let i = 0; i < decks_more_btn_El.length; i++){
         decks_more_btn_El[i].addEventListener("click", function (e) {
             e.stopPropagation();
@@ -286,6 +277,7 @@ if (decks_more_btn_El){
         alert("Link copied to clipboard")
     });
     }
+
 }
 
 
@@ -306,6 +298,28 @@ if (save_other_El) {
                     save_other_El[i].style.cursor = "default";
                 }
             });
+        });
+    }
+}
+
+const dash_practice_El = document.querySelector("#dash-practice");
+if (dash_practice_El) {
+    let dash_practice_btn = dash_practice_El.firstElementChild;
+    dash_practice_btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        window.location.href = "/practice";
+    });
+}
+
+const learn_state = document.querySelectorAll(".switch-box")
+if (learn_state) {
+    for (let i = 0; i < learn_state.length; i++){
+        learn_state[i].addEventListener("input", () => {
+           $.ajax({
+               url: "/learning",
+               type: "POST",
+               data: {"state": learn_state[i].checked, "dsh": learn_state[i].parentElement.id}
+           });
         });
     }
 }

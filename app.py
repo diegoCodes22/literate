@@ -33,17 +33,14 @@ def parse_deck_info(user_id=None, access=None):
         dict(deck)
         deck_info = json.loads(deck["deck_info"])
         x = {"deck_name": deck["deck_name"], "word_count": len(deck_info["word"]),
-             "deck_hash": deck["deck_hash"], "user_id": deck["user_id"]}
+             "deck_hash": deck["deck_hash"], "user_id": deck["user_id"], "learning": deck["learning"]}
         decks_list.append(x)
     return decks_list
 
 
 @login_required
 def paand(user_id, action, deck_hash=None, access=None, info=None, add=None):
-    access_list = None
-    # I don't think access list is necessary
     owner_id = None
-
 
     def community_share_check(deck_info_community_share):
         try:
@@ -58,7 +55,6 @@ def paand(user_id, action, deck_hash=None, access=None, info=None, add=None):
                 del deck_info["community-share"]
                 return "Private"
         except KeyError:
-            # access_list = [user_id]
             return "Private"
 
     if deck_hash:
@@ -87,18 +83,18 @@ def paand(user_id, action, deck_hash=None, access=None, info=None, add=None):
     if action == "insert":
         if access == "Private":
             if info:
-                cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) "
-                            "VALUES(?, ?, ?, ?, ?)""RETURNING deck_id",
-                            (user_id, info["deck-name"][0], json.dumps(info), access, json.dumps(access_list)))
+                cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access) "
+                            "VALUES(?, ?, ?, ?)""RETURNING deck_id",
+                            (user_id, info["deck-name"][0], json.dumps(info), access))
             else:
-                cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) "
-                            "VALUES(?, ?, ?, ?, ?)""RETURNING deck_id",
-                            (user_id, deck_info["deck-name"][0], json.dumps(deck_info), access, json.dumps(access_list))
+                cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access) "
+                            "VALUES(?, ?, ?, ?)""RETURNING deck_id",
+                            (user_id, deck_info["deck-name"][0], json.dumps(deck_info), access)
                             )
         else:
-            cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access, access_list) VALUES(?, ?, ?, ?, ?)"
+            cur.execute("INSERT INTO decks(user_id, deck_name, deck_info, access) VALUES(?, ?, ?, ?)"
                         "RETURNING deck_id",
-                        (user_id, deck_info["deck-name"][0], json.dumps(deck_info), access, json.dumps(access_list)))
+                        (user_id, deck_info["deck-name"][0], json.dumps(deck_info), access))
         deck_id = cur.fetchone()[0]
         deck_hash = generate_unique_id(deck_id)
         cur.execute('UPDATE decks SET deck_hash=? WHERE deck_id=?', (deck_hash, deck_id))
@@ -106,9 +102,9 @@ def paand(user_id, action, deck_hash=None, access=None, info=None, add=None):
         return 0
 
     elif action == "update" and owner_id == user_id:
-        cur.execute("UPDATE decks SET deck_name=?, deck_info=?, access=?, access_list=? "
+        cur.execute("UPDATE decks SET deck_name=?, deck_info=?, access=? "
                     "WHERE user_id=? AND deck_hash=?",
-                    (deck_info["deck-name"][0], json.dumps(deck_info), access, json.dumps(access_list), user_id,
+                    (deck_info["deck-name"][0], json.dumps(deck_info), access, user_id,
                         deck_hash))
         conn.commit()
         return 0
@@ -251,7 +247,11 @@ def delete_deck():
         deck_hash = request.args.get("dsh")
         user_id = session["user_id"]
         cur.execute("SELECT user_id FROM decks WHERE deck_hash=?", (deck_hash,))
-        owner_id = cur.fetchone()[0]
+        try:
+            owner_id = cur.fetchone()[0]
+        except TypeError:
+            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+
         if owner_id == user_id:
             cur.execute("DELETE FROM decks WHERE deck_hash=?", (deck_hash,))
             conn.commit()
@@ -268,12 +268,6 @@ def find_other_decks():
         return render_template("find_other_decks.html", decks_list=parse_deck_info(user_id=user_id, access="Public"))
 
 
-@app.route("/practice", methods=["POST", "GET"])
-@login_required
-def practice():
-    return render_template("practice.html")
-
-
 @app.route("/save_other", methods=["POST", "GET"])
 @login_required
 def save_other():
@@ -285,3 +279,22 @@ def save_other():
             return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
         else:
             return insert
+
+
+@app.route("/learning", methods=["POST", "GET"])
+@login_required
+def learning():
+    if request.method == "POST":
+        state = "On" if request.form.get("state") == "true" else "Off"
+        deck_hash = request.form.get("dsh")
+        cur.execute("UPDATE decks SET learning=? WHERE deck_hash=?", (state, deck_hash))
+        conn.commit()
+        return jsonify({"learning": state})
+
+
+@app.route("/practice", methods=["POST", "GET"])
+@login_required
+def practice():
+    user_id = session["user_id"]
+    if request.method == "GET":
+        return render_template("practice.html")

@@ -254,8 +254,6 @@ main {
     margin-top: 0;
 }
 
-/*Slider has units in px, but it should be in % or rem. It is not responsive.*/
-/*Or maybe it is not necessary*/
 .switch {
     position: relative;
     display: inline-block;
@@ -299,10 +297,13 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+input:checked ~ .learning-label {
+    color: #000;
+}
 
 .deck-state{
     position: relative;
-
+    height: 4.5rem;
 }
 .deck-state label{
     position: absolute;
@@ -310,6 +311,14 @@ input:checked + .slider:before {
     right: 0;
     margin-right: 1rem;
     margin-top: 2rem;
+}
+.learning-label {
+    position: absolute;
+    right: 4rem;
+    top: .15rem;
+    color: dimgray;
+    font-weight: 900;
+    font-size: 1.17rem;
 }
 
 #more-menu {

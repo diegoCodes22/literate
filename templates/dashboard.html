@@ -24,7 +24,7 @@
         </div>
       </div>
       <div id="dash-practice" class="text-center mt-6">
-        <button class="btn-primary full-span"><a href="/practice">Begin Practice</a></button>
+        <button class="btn-primary full-span"><a href="">Begin Practice</a></button>
       </div>
       <div class="decks text-center">
         {% for deck in decks_list %}
@@ -45,9 +45,14 @@
               </a>
             </div>
             <div class="deck-state">
-              <label class="switch">
-                <input type="checkbox">
+              <label class="switch" id="{{deck['deck_hash']}}">
+                {% if deck["learning"] == "On" %}
+                  <input type="checkbox" checked class="switch-box">
+                {% else %}
+                  <input type="checkbox" class="switch-box">
+                {% endif %}
                 <span class="slider round"></span>
+                <span class="learning-label">Learning</span>
               </label>
             </div>
           </div>
