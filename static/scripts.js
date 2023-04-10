@@ -341,10 +341,12 @@ if (window.location.pathname === '/practice'){
         let practice_type = Math.floor(Math.random() * 2)
         const practice_length = practice_cards.length-1;
         let i = 0;
-        function renderPractice(){
+        function renderPractice() {
+
             document.querySelector("#reveal-div").style.display = "block";
             document.querySelector("#remember-btns").style.display = "none";
-            if (practice_type === 0){
+
+            if (practice_type === 0) {
                 practice_div.innerHTML = `
                   <div id="definition" class="practice-cards">
                     <fieldset>
@@ -387,44 +389,49 @@ if (window.location.pathname === '/practice'){
                 document.querySelector("#vocabulary-vocabulary").innerHTML = practice_cards[i][0];
                 document.querySelector("#vocabulary-example").innerHTML = practice_cards[i][2];
             }
-            const definition = document.querySelector("#definition-definition");
-            const vocab = document.querySelector("#vocabulary-vocabulary");
-            const example = document.querySelector("#vocabulary-example");
-
-            document.querySelector("#reveal").addEventListener("click", () => {
-               if (practice_type === 0){
-                   vocab.innerHTML = practice_cards[i][0];
-                   example.innerHTML = practice_cards[i][2];
-               }
-               else {
-                   definition.innerHTML = practice_cards[i][1];
-               }
-               document.querySelector("#reveal-div").style.display = "none";
-               document.querySelector("#remember-btns").style.display = "block";
-               document.querySelector("#left-practice-btn").firstElementChild.addEventListener("click", () => {
-                   practice_cards[i][3] = +practice_cards[i][3];
-                   practice_cards[i][3]--;
-                   practice_cards[i][3] = practice_cards[i][3].toString(10);
-                   console.log(i);
-                   if (i < practice_length){
-                       i++;
-                       renderPractice();
-                   }
-               });
-                document.querySelector("#right-practice-btn").firstElementChild.addEventListener("click", () => {
-                   practice_cards[i][3] = +practice_cards[i][3];
-                   practice_cards[i][3]++;
-                   practice_cards[i][3] = practice_cards[i][3].toString(10);
-                    console.log(i);
-                    if (i < practice_length){
-                       i++;
-                       renderPractice();
-                    }
-               });
-            });
         }
+
         if (i===0){
             renderPractice();
         }
+
+        const definition = document.querySelector("#definition-definition");
+        const vocab = document.querySelector("#vocabulary-vocabulary");
+        const example = document.querySelector("#vocabulary-example");
+
+        document.querySelector("#reveal").addEventListener("click", () => {
+
+           if (practice_type === 0){
+               vocab.innerHTML = practice_cards[i][0];
+               example.innerHTML = practice_cards[i][2];
+           }
+           else {
+               definition.innerHTML = practice_cards[i][1];
+           }
+
+           document.querySelector("#reveal-div").style.display = "none";
+           document.querySelector("#remember-btns").style.display = "block";
+
+            function f(){
+                practice_cards[i][3] = +practice_cards[i][3];
+                if (this.parentElement.id === "right-practice-btn") practice_cards[i][3]++;
+                else if (this.parentElement.id === "left-practice-btn") practice_cards[i][3]--;
+                practice_cards[i][3] = practice_cards[i][3].toString(10);
+
+                console.log(`i -- ${i}`);
+                if (i < practice_length){
+                    document.querySelector("#right-practice-btn").firstElementChild.removeEventListener("click", f);
+                    document.querySelector("#left-practice-btn").firstElementChild.removeEventListener("click", f);
+                    i++;
+                    renderPractice();
+                }
+                // if (i === practice_length) {
+                //     console.log("finished practice");
+                // }
+            }
+            document.querySelector("#left-practice-btn").firstElementChild.addEventListener("click", f);
+
+            document.querySelector("#right-practice-btn").firstElementChild.addEventListener("click", f);
+        });
     });
 }

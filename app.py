@@ -67,11 +67,14 @@ def paand(user_id, action, deck_hash=None, access=None, info=None, add=None):
             scores = scores["scores"]
             deck_info = request.form.to_dict(flat=False)
             deck_info["scores"] = scores
+            if len(deck_info["scores"]) != len(deck_info["word"]):
+                deck_info["scores"] += ["0"]*(len(deck_info["word"])-len(deck_info["scores"]))
         else:
             if add == "add":
                 deck_info = request.form.to_dict(flat=False)
             else:
                 deck_info = json.loads(deck["deck_info"])
+
             deck_info["scores"] = ["0"]*len(deck_info["word"])
 
         access = community_share_check(deck_info)
@@ -308,19 +311,20 @@ def practice():
 @login_required
 def practice_card():
     user_id = session["user_id"]
+
     if request.method == "GET":
         cur.execute("SELECT deck_info FROM decks WHERE user_id=? AND learning=?", (user_id, "On"))
         decks = cur.fetchall()
+
         cards = []
+
         if decks:
             for deck in decks:
                 dict(deck)
                 deck_info = json.loads(deck["deck_info"])
+                print(deck_info)
                 cards.append(list(zip(deck_info["word"], deck_info["definition"], deck_info["example"],
                                       deck_info["scores"])))
-        # [[('wad', 'cw', 'arc', '0'), ('cea', 'cowcwdc', 'vcefx', '1'), ('', '', '', '4')],
-        # [('wad', 'cw', 'arc', '2'), ('cea', 'cowcwdc', 'vcefx', '-1'), ('', '', '', '-2')],
-        # [('wad', 'cw', 'arc', '1'), ('cea', 'cowcwdc', 'vcefx', '-2'), ('', '', '', '3')]]
 
         algo_cards = []
         for card in cards:
