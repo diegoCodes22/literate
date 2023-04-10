@@ -193,14 +193,6 @@ if (add_card_EL){
             });
         }
     add_card_EL.addEventListener("click", function () {
-        // for (let cards of cards_El) {
-        //     cards.addEventListener("click", function (e) {
-        //         if (e.target.classList.contains("del-card")) {
-        //             alert("clicked!");
-        //             e.target.parentElement.parentElement.remove();
-        //         }
-        //     });
-        // }
         let card = document.createElement("fieldset");
         card.classList.add("card");
         card.innerHTML = `<div class="del-card">
