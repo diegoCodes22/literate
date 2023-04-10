@@ -612,3 +612,7 @@ input:checked ~ .learning-label {
     border-radius: 23px;
     font-size: 1.6rem;
 }
+
+#remember-btns {
+    display: none;
+}

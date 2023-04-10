@@ -323,3 +323,108 @@ if (learn_state) {
         });
     }
 }
+
+
+
+if (window.location.pathname === '/practice'){
+    let practice_cards;
+    window.addEventListener("load", () => {
+       $.ajax({
+            type: "GET",
+            url: "/practice_card",
+            success: function (response) {
+                practice_cards = JSON.parse(response);
+            },
+            async: false
+        });
+        const practice_div = document.querySelector("#def-vocab-ex");
+        let practice_type = Math.floor(Math.random() * 2)
+        const practice_length = practice_cards.length-1;
+        let i = 0;
+        function renderPractice(){
+            document.querySelector("#reveal-div").style.display = "block";
+            document.querySelector("#remember-btns").style.display = "none";
+            if (practice_type === 0){
+                practice_div.innerHTML = `
+                  <div id="definition" class="practice-cards">
+                    <fieldset>
+                      <div>
+                        <span>Definition</span>
+                        <span class="bolder" id="definition-definition"></span>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div id="vocabulary" class="practice-cards">
+                    <fieldset>
+                      <div>
+                        <span>Vocabulary</span>
+                        <span class="bolder" id="vocabulary-vocabulary"></span>
+                        <span id="vocabulary-example"></span>
+                      </div>
+                    </fieldset>
+                  </div>`
+                document.querySelector("#definition-definition").innerHTML = practice_cards[i][1];
+            }
+            else {
+                practice_div.innerHTML = `
+                  <div id="vocabulary" class="practice-cards">
+                    <fieldset>
+                      <div>
+                        <span>Vocabulary</span>
+                        <span class="bolder" id="vocabulary-vocabulary"></span>
+                        <span id="vocabulary-example"></span>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div id="definition" class="practice-cards">
+                    <fieldset>
+                      <div>
+                        <span>Definition</span>
+                        <span class="bolder" id="definition-definition"></span>
+                      </div>
+                    </fieldset>
+                  </div>`
+                document.querySelector("#vocabulary-vocabulary").innerHTML = practice_cards[i][0];
+                document.querySelector("#vocabulary-example").innerHTML = practice_cards[i][2];
+            }
+            const definition = document.querySelector("#definition-definition");
+            const vocab = document.querySelector("#vocabulary-vocabulary");
+            const example = document.querySelector("#vocabulary-example");
+
+            document.querySelector("#reveal").addEventListener("click", () => {
+               if (practice_type === 0){
+                   vocab.innerHTML = practice_cards[i][0];
+                   example.innerHTML = practice_cards[i][2];
+               }
+               else {
+                   definition.innerHTML = practice_cards[i][1];
+               }
+               document.querySelector("#reveal-div").style.display = "none";
+               document.querySelector("#remember-btns").style.display = "block";
+               document.querySelector("#left-practice-btn").firstElementChild.addEventListener("click", () => {
+                   practice_cards[i][3] = +practice_cards[i][3];
+                   practice_cards[i][3]--;
+                   practice_cards[i][3] = practice_cards[i][3].toString(10);
+                   console.log(i);
+                   if (i < practice_length){
+                       i++;
+                       renderPractice();
+                   }
+               });
+                document.querySelector("#right-practice-btn").firstElementChild.addEventListener("click", () => {
+                   practice_cards[i][3] = +practice_cards[i][3];
+                   practice_cards[i][3]++;
+                   practice_cards[i][3] = practice_cards[i][3].toString(10);
+                    console.log(i);
+                    if (i < practice_length){
+                       i++;
+                       renderPractice();
+                    }
+               });
+            });
+        }
+        if (i===0){
+            renderPractice();
+        }
+    });
+}
