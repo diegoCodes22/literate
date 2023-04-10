@@ -395,18 +395,14 @@ if (window.location.pathname === '/practice'){
             renderPractice();
         }
 
-        const definition = document.querySelector("#definition-definition");
-        const vocab = document.querySelector("#vocabulary-vocabulary");
-        const example = document.querySelector("#vocabulary-example");
-
         document.querySelector("#reveal").addEventListener("click", () => {
 
            if (practice_type === 0){
-               vocab.innerHTML = practice_cards[i][0];
-               example.innerHTML = practice_cards[i][2];
+                document.querySelector("#vocabulary-vocabulary").innerHTML = practice_cards[i][0];
+                document.querySelector("#vocabulary-example").innerHTML = practice_cards[i][2];
            }
            else {
-               definition.innerHTML = practice_cards[i][1];
+               document.querySelector("#definition-definition").innerHTML = practice_cards[i][1];
            }
 
            document.querySelector("#reveal-div").style.display = "none";
@@ -425,10 +421,11 @@ if (window.location.pathname === '/practice'){
                     i++;
                     renderPractice();
                 }
-                // if (i === practice_length) {
-                //     console.log("finished practice");
-                // }
+                else {
+                    window.location.pathname = "/"
+                }
             }
+
             document.querySelector("#left-practice-btn").firstElementChild.addEventListener("click", f);
 
             document.querySelector("#right-practice-btn").firstElementChild.addEventListener("click", f);
