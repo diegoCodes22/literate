@@ -185,14 +185,22 @@ if (more_menu_El) {
 const cards_El = document.querySelectorAll("#cards");
 const add_card_EL = document.querySelector("#add-card");
 if (add_card_EL){
-    add_card_EL.addEventListener("click", function () {
-        for (let cards of cards_El) {
-            cards.addEventListener("click", function (e) {
+    for (let i = 0; i < cards_El.length; i++) {
+            cards_El[i].addEventListener("click", function (e) {
                 if (e.target.classList.contains("del-card")) {
                     e.target.parentElement.parentElement.remove();
                 }
             });
         }
+    add_card_EL.addEventListener("click", function () {
+        // for (let cards of cards_El) {
+        //     cards.addEventListener("click", function (e) {
+        //         if (e.target.classList.contains("del-card")) {
+        //             alert("clicked!");
+        //             e.target.parentElement.parentElement.remove();
+        //         }
+        //     });
+        // }
         let card = document.createElement("fieldset");
         card.classList.add("card");
         card.innerHTML = `<div class="del-card">
@@ -207,7 +215,7 @@ if (add_card_EL){
                   <div class="word">
                     <p class="bolder">Word *</p>
                     <label>
-                      <span><input name="word" type="text" class="field-input" placeholder="Type here"></span>
+                      <span><input name="word" type="text" class="field-input" placeholder="Type here" autofocus></span>
                     </label>
                   </div>
                   <div class="def">
@@ -224,6 +232,11 @@ if (add_card_EL){
                   </label>
                 </div>
               </div>`;
+        card.addEventListener("click", function (e) {
+                if (e.target.classList.contains("del-card")) {
+                    e.target.parentElement.parentElement.remove();
+                }
+            });
         cards_El[0].appendChild(card);
     });
 }
