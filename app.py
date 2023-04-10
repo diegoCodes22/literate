@@ -312,23 +312,64 @@ def practice():
 def practice_card():
     user_id = session["user_id"]
 
-    if request.method == "GET":
-        cur.execute("SELECT deck_info FROM decks WHERE user_id=? AND learning=?", (user_id, "On"))
+    def learning_decks():
+        cur.execute("SELECT deck_info, deck_hash FROM decks WHERE user_id=? AND learning=?", (user_id, "On"))
         decks = cur.fetchall()
 
         cards = []
 
         if decks:
             for deck in decks:
+                cards_dic = {}
                 dict(deck)
                 deck_info = json.loads(deck["deck_info"])
-                print(deck_info)
-                cards.append(list(zip(deck_info["word"], deck_info["definition"], deck_info["example"],
-                                      deck_info["scores"])))
+                cards_dic["cards"] = (list(zip(deck_info["word"], deck_info["definition"], deck_info["example"],
+                                           deck_info["scores"])))
+                cards_dic["hash"] = deck["deck_hash"]
+                cards_dic["deck-name"] = deck_info["deck-name"]
+                cards.append(cards_dic)
+        return cards
+
+    if request.method == "GET":
+
+        learning_cards = learning_decks()
 
         algo_cards = []
-        for card in cards:
-            algo_cards += card
+        for card in learning_cards:
+            for al_card in card["cards"]:
+                algo_cards.append(al_card)
 
-        algo_cards.sort(key=lambda scores: int(scores[3]))
+        algo_cards.sort(key=lambda algo_scores: int(algo_scores[3]))
         return json.dumps(algo_cards)
+
+    elif request.method == "POST":
+        practice_cards = request.get_data()
+        practice_cards = json.loads(practice_cards)
+
+        cards_update = learning_decks()
+
+        new_scores = []
+        for x in cards_update:
+            new_cards = {"deck-name": x["deck-name"], "cards": []}
+            for y in x["cards"]:
+                new_cards["cards"].append(list(y))
+            new_cards["hash"] = x["hash"]
+            new_scores.append(new_cards)
+
+        for pc in practice_cards:
+            for card_dic in new_scores:
+                for cards in card_dic["cards"]:
+                    if cards[0] == pc[0]:
+                        cards[3] = pc[3]
+
+        for new in new_scores:
+            word, definition, example, scores = map(list, zip(*new["cards"]))
+
+            deck_info = {"deck-name": new["deck-name"], "word": word, "definition": definition, "example": example,
+                         "scores": scores}
+
+            cur.execute("UPDATE decks SET deck_info=? WHERE deck_hash=?", (json.dumps(deck_info), new["hash"]))
+
+        conn.commit()
+
+        return "/"

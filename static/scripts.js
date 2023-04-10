@@ -414,7 +414,6 @@ if (window.location.pathname === '/practice'){
                 else if (this.parentElement.id === "left-practice-btn") practice_cards[i][3]--;
                 practice_cards[i][3] = practice_cards[i][3].toString(10);
 
-                console.log(`i -- ${i}`);
                 if (i < practice_length){
                     document.querySelector("#right-practice-btn").firstElementChild.removeEventListener("click", f);
                     document.querySelector("#left-practice-btn").firstElementChild.removeEventListener("click", f);
@@ -422,7 +421,15 @@ if (window.location.pathname === '/practice'){
                     renderPractice();
                 }
                 else {
-                    window.location.pathname = "/"
+                    $.ajax({
+                        async: false,
+                        url: "/practice_card",
+                        type: "POST",
+                        data: JSON.stringify(practice_cards),
+                       success: (response) => {
+                            window.location.pathname = response;
+                       }
+                    });
                 }
             }
 
