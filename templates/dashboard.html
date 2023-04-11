@@ -23,8 +23,8 @@
           <div id="words-mastered"><span>Mastered {{words_mastered}}</span></div>
         </div>
       </div>
-      <div id="dash-practice" class="text-center mt-6">
-        <button class="btn-primary full-span"><a href="">Begin Practice</a></button>
+      <div id="dash-practice" class="text-center">
+        <button class="btn-primary full-span" id="practice-button"><a href="">Begin Practice</a></button>
       </div>
       <div class="decks text-center">
         {% for deck in decks_list %}
@@ -41,7 +41,7 @@
                 <div>
                   <h2>{{deck.deck_name}}</h2>
                 </div>
-                <p><small>{{deck.word_count}} words</small></p>
+                <p>{{deck.word_count}} words</p>
               </a>
             </div>
             <div class="deck-state">

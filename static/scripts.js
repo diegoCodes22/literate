@@ -207,7 +207,7 @@ if (add_card_EL){
                   <div class="word">
                     <p class="bolder">Word *</p>
                     <label>
-                      <span><input name="word" type="text" class="field-input" placeholder="Type here" autofocus></span>
+                      <span><input name="word" type="text" class="field-input" placeholder="Type here"></span>
                     </label>
                   </div>
                   <div class="def">
