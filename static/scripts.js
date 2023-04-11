@@ -411,7 +411,7 @@ if (window.location.pathname === '/practice'){
            }
 
            document.querySelector("#reveal-div").style.display = "none";
-           document.querySelector("#remember-btns").style.display = "block";
+           document.querySelector("#remember-btns").style.display = "flex";
 
             function f(){
                 practice_cards[i][3] = +practice_cards[i][3];

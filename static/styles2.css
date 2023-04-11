@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-html, main, .container{
+main{
     overflow: auto;
 }
 
@@ -62,13 +62,6 @@ body {
     color: #ea433b;
 }
 
-.brand {
-    font-size: 3rem;
-    font-family: "Copperplate", cursive;
-    text-decoration: none;
-    color: black;
-}
-
 .vertical-nav {
     background-color: white !important;
     position: fixed;
@@ -85,16 +78,34 @@ body {
 
 .grid-item-nav {
     width: 100%;
-    overflow-clip-margin: 0;
+    margin-top: 3rem;
 }
+
+.brand {
+    font-size: 4.3rem;
+    font-family: "Copperplate", cursive;
+    text-decoration: none;
+    color: black;
+}
+
 .grid-item-content {
     width: 100%;
     height: 100%;
     overflow: auto;
 }
+.grid-item::after {
+    content: "";
+    position: absolute;
+    height: 100vh;
+    width: .5px;
+    background: rgb(192, 193, 194);
+    left: 300px;
+    top: 0;
+}
+
 
 main {
-    height: inherit;
+    height: 100%;
 }
 
 .nav-list {
@@ -107,7 +118,7 @@ main {
 }
 
 .nav-links {
-    font-size: 1.5rem;
+    font-size: 1.9rem;
     color: black;
     text-decoration: none;
 }
@@ -184,7 +195,6 @@ main {
 #dashboard-stats{
     display: flex;
     margin-top: 2rem;
-    /*justify-content: left;*/
     justify-content: space-between;
 }
 .stat-box {
@@ -197,7 +207,7 @@ main {
     padding-top: 1rem;
     margin-right: .5rem;
     margin-left: .5rem;
-    box-shadow: 0 0 2px 0 rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 1px 1px rgba(65, 70, 77,0.3);
 }
 .stat-box div span {
     font-size: 1.4rem;
@@ -210,7 +220,7 @@ main {
     display:grid;
     grid-template-columns: repeat(2, minmax(380px, 605px));
     column-gap: 2rem;
-    grid-template-rows: repeat(auto-fit, 20rem);
+    grid-auto-rows: 20rem;
     justify-content: space-between;
 }
 .deck {
@@ -218,7 +228,7 @@ main {
     border: .3px solid gray;
     border-radius: 20px;
     background-color: white;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
+    box-shadow: 6.5px 6.5px 2px 2px rgba(65, 70, 77,0.3);
 }
 
 .deck-more {
@@ -328,10 +338,8 @@ input:checked ~ .learning-label {
 }
 .deck-state label{
     position: absolute;
-    top: 0;
-    right: 0;
-    margin-right: 1.8rem;
-    margin-top: 3.5rem;
+    right: 1rem;
+    bottom: -.8rem;
 }
 .learning-label {
     position: absolute;
@@ -359,6 +367,12 @@ input:checked ~ .learning-label {
 @media (max-width: 1200px) {
     .container {
         margin: 0 8% 0 8%;
+    }
+    .grid-item::after {
+        display: none;
+    }
+    #dashboard-header-div h1 {
+        margin-left: 1.8rem;
     }
     .grid-container {
         width: 100%;
@@ -432,12 +446,46 @@ input:checked ~ .learning-label {
             grid-template-columns: repeat(auto-fit, minmax(380px, 605px));
             justify-content: center;
         }
-        @media (max-width: 380px) {
+        .arr {
+            display: none;
+        }
+        #heading {
+            margin-left: 0 !important;
+            margin-top: .5rem !important;
+            margin-bottom: 0 !important;
+        }
+        #heading h1 {
+            font-size: 2rem;
+            margin-left: 3rem;
+            width: 70%;
+        }
+        #heading a {
+            width: 30%;
+        }
+        #practice-close {
+            margin-right: 2rem !important;
+        }
+
+        #def-vocab-ex {
+            margin-top: -2rem !important;
+        }
+        .practice-cards {
+            width: 80% !important;
+            height: 18rem !important;
+            margin: 3rem auto !important;
+        }
+        .practice-cards fieldset div {
+            margin-left: 1rem !important;
+        }
+        @media (max-width: 500px) {
             .nav-list li {
                 padding-left: 1rem;
             }
             .nav-list li a {
                 padding-left: 1.5rem;
+            }
+            .practice-cards {
+                height: 15rem !important;
             }
         }
     }
@@ -473,6 +521,7 @@ input:checked ~ .learning-label {
     border: .5px solid gray;
     background-color: white;
     border-radius: 20px;
+    box-shadow: 2px 2px 1.5px 1.5px rgba(65, 70, 77, 0.18);
 }
 
 .deck-info {
@@ -653,4 +702,39 @@ input:checked ~ .learning-label {
 
 #remember-btns {
     display: none;
+    justify-content: center;
+}
+#left-practice-btn button, #right-practice-btn button {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    margin: 0 5rem;
+    color: white;
+    border: none;
+}
+#left-practice-btn button {
+    background-color: rgb(240, 13, 13);
+}
+#right-practice-btn button {
+    background-color: rgb(36, 110, 250);
+}
+
+#left-practice-btn button:hover {
+    cursor: pointer;
+    background-color: rgb(220, 13, 13);
+}
+#right-practice-btn button:hover {
+    cursor: pointer;
+    background-color: rgb(30, 100, 220);
+}
+
+#definition-definition, #vocabulary-vocabulary {
+    font-size: 2rem;
+    margin-top: -1.2rem;
+}
+#vocabulary-example {
+    font-size: 1.5rem;
+    margin-top: -1.2rem;
 }
