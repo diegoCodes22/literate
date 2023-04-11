@@ -142,7 +142,7 @@ def index():
         inserted = paand(user_id, "insert")
 
         if inserted == 0:
-            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+            return redirect("/")
         else:
             return inserted
 
@@ -232,8 +232,7 @@ def edit_deck():
     if request.method == "POST":
 
         paand(user_id, "update", deck_hash=deck_hash, add="add")
-
-        return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+        return redirect("/")
     else:
         cur.execute("SELECT * FROM decks WHERE deck_hash=?", (deck_hash,))
         deck = cur.fetchone()
@@ -263,7 +262,7 @@ def delete_deck():
         if owner_id == user_id:
             cur.execute("DELETE FROM decks WHERE deck_hash=?", (deck_hash,))
             conn.commit()
-            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+            return redirect("/")
         else:
             return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
 
@@ -284,7 +283,7 @@ def save_other():
         deck_hash = request.form.get("dsh")
         insert = paand(user_id, "update", deck_hash=deck_hash, access="Private")
         if insert == 0:
-            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+            return redirect("/")
         else:
             return insert
 

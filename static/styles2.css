@@ -441,7 +441,7 @@ input:checked ~ .learning-label {
         margin-top: -3rem;
         padding-bottom: 100px;
     }
-    @media (max-width: 940px){
+    @media (max-width: 1100px){
         .decks{
             grid-template-columns: repeat(auto-fit, minmax(380px, 605px));
             justify-content: center;
@@ -584,7 +584,6 @@ input:checked ~ .learning-label {
     color: slategrey;
 }
 .deck-info {
-    /*margin-top: -2.5rem;*/
     margin-top: -1.1rem;
 }
 
@@ -639,6 +638,10 @@ input:checked ~ .learning-label {
     background-color: rgb(30, 100, 220);
 }
 
+#def-vocab-ex {
+    padding-bottom: 3rem;
+}
+
 #heading {
     margin: 3rem 0 0 9rem;
     display: flex;
@@ -662,13 +665,17 @@ input:checked ~ .learning-label {
 }
 
 .practice-cards {
-    margin: 8rem 25% 0 auto;
+    margin: 1rem 25% 0 auto;
     width: 50%;
     height: 15rem;
+    padding-bottom: 2rem;
+    min-height: fit-content;
 }
 
 .practice-cards fieldset{
+    min-height: fit-content;
     height: inherit;
+    min-width: 950px;
     border-radius: 20px;
     background-color: white;
     border: .5px solid gray;
@@ -679,6 +686,7 @@ input:checked ~ .learning-label {
     margin-left: 2.5rem;
     display: flex;
     flex-direction: column;
+    resize: vertical !important;
 }
 .practice-cards fieldset div span {
     display: inline-block;
@@ -690,7 +698,7 @@ input:checked ~ .learning-label {
 }
 
 #practice-btns {
-    margin-top: 4rem;
+    margin-top: 1rem;
 }
 
 #reveal {

@@ -441,6 +441,20 @@ if (window.location.pathname === '/practice'){
             document.querySelector("#left-practice-btn").firstElementChild.addEventListener("click", f);
 
             document.querySelector("#right-practice-btn").firstElementChild.addEventListener("click", f);
+
+            document.addEventListener("keyup", (e) => {
+                if (e.key === "ArrowRight") {
+                    document.querySelector("#right-practice-btn").firstElementChild.click();
+                }
+            });
+
+            document.addEventListener("keyup", (e) => {
+                if (e.key === "ArrowLeft") document.querySelector("#left-practice-btn").firstElementChild.click();
+            });
+
+        });
+        document.addEventListener("keyup", (e) => {
+            if (e.key === "Enter") document.querySelector("#reveal").click();
         });
     });
 }
