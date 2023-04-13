@@ -5,29 +5,31 @@
 {% endblock %}
 
 {% block main %}
-<div class="text-center">
+<div class="text-center lr-heading">
+  <img src="/static/images/logo.png" id="register-logo" class="logo" alt="logo">
   <h1>Register</h1>
 </div>
 <br>
 <form action="/register" method="post" class="form-parent" id="register">
   <div class="text-center">
-      <div class="mb-3 form-div">
-        <label for="email"></label>
-        <input id="email" name="email" placeholder="Email*" required class="form-field" type="email" autocomplete="off">
-        <div><small></small></div>
+      <div class="form-div">
+        <label for="email">Your email</label>
+        <input id="email" name="email" required class="form-field" type="email" autocomplete="off" autofocus>
+        <div class="err-succ"><small></small></div>
       </div>
-    <div class="mb-3 form-div">
-      <label for="password"></label>
-      <input id="password" name="password" type="password" required placeholder="Password*" class="form-field" autocomplete="off">
-      <div><small></small></div>
+    <div class="form-div">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required class="form-field" autocomplete="off">
+      <div class="err-succ"><small></small></div>
     </div>
-    <div class="mb-3 form-div">
-      <label for="confirm_password"></label>
-      <input id="confirm_password" type="password" required name="confirm_password" placeholder="Reenter your Password*" class="form-field" autocomplete="off">
-      <div><small></small></div>
+    <div class="form-div">
+      <label for="confirm_password">Confirm password</label>
+      <input id="confirm_password" type="password" required name="confirm_password" class="form-field" autocomplete="off">
+      <div class="err-succ"><small></small></div>
     </div>
-    <button id="form_button" type="submit" class="btn-primary">Register</button>
+    <button id="form_button" type="submit" class="btn-primary">Welcome to Literate</button>
     <p><strong></strong></p>
   </div>
 </form>
+<p id="foot" class="text-center">Already have an account? <a href="/login">Log in</a></p>
 {% endblock %}
