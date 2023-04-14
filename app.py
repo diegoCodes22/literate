@@ -170,7 +170,7 @@ def index():
             return inserted
 
     else:
-        return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id), stats=render_stats())
+        return render_template("index.html", decks_list=parse_deck_info(user_id=user_id), stats=render_stats())
 
 
 @app.route("/start_page")
@@ -280,14 +280,14 @@ def delete_deck():
         try:
             owner_id = cur.fetchone()[0]
         except TypeError:
-            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+            return render_template("index.html", decks_list=parse_deck_info(user_id=user_id))
 
         if owner_id == user_id:
             cur.execute("DELETE FROM decks WHERE deck_hash=?", (deck_hash,))
             conn.commit()
             return redirect("/")
         else:
-            return render_template("dashboard.html", decks_list=parse_deck_info(user_id=user_id))
+            return render_template("index.html", decks_list=parse_deck_info(user_id=user_id))
 
 
 @app.route("/find_decks", methods=["POST", "GET"])

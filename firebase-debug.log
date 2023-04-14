@@ -1,0 +1,44 @@
+[debug] [2023-04-14T01:41:31.627Z] ----------------------------------------------------------------------
+[debug] [2023-04-14T01:41:31.629Z] Command:       /usr/local/bin/firebase /Users/superdiegui/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase emulators:start
+[debug] [2023-04-14T01:41:31.629Z] CLI Version:   11.27.0
+[debug] [2023-04-14T01:41:31.629Z] Platform:      darwin
+[debug] [2023-04-14T01:41:31.629Z] Node Version:  v16.16.0
+[debug] [2023-04-14T01:41:31.631Z] Time:          Thu Apr 13 2023 21:41:31 GMT-0400 (Venezuela Time)
+[debug] [2023-04-14T01:41:31.631Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-14T01:41:31.685Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-14T01:41:31.685Z] > authorizing via signed-in user (diegowork2203@gmail.com)
+[info] i  emulators: Starting emulators: hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: hosting"}}
+[debug] [2023-04-14T01:41:32.124Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[warn] ⚠  hosting: Hosting Emulator unable to start on port 5000, starting on 5002 instead. {"metadata":{"emulator":{"name":"hosting"},"message":"Hosting Emulator unable to start on port 5000, starting on 5002 instead."}}
+[debug] [2023-04-14T01:41:32.125Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-04-14T01:41:32.126Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5002}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2023-04-14T01:41:32.132Z] [hub] writing locator at /var/folders/8_/bn_ydk8x40zb5fvkb6wn41f00000gn/T/hub-literate-c0532.json
+[debug] [2023-04-14T01:41:32.153Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/literate-c0532/sites 
+[debug] [2023-04-14T01:41:32.872Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/literate-c0532/sites 200
+[debug] [2023-04-14T01:41:32.872Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/literate-c0532/sites {"sites":[{"name":"projects/literate-c0532/sites/literate-c0532","defaultUrl":"https://literate-c0532.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-14T01:41:32.873Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/literate-c0532/webApps/-/config [none]
+[debug] [2023-04-14T01:41:33.732Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/literate-c0532/webApps/-/config 200
+[debug] [2023-04-14T01:41:33.733Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/literate-c0532/webApps/-/config {"projectId":"literate-c0532","storageBucket":"literate-c0532.appspot.com","apiKey":"AIzaSyDri7XZBw-ZyjtoBFsYzAEGVcXHGVYhtKU","authDomain":"literate-c0532.firebaseapp.com","messagingSenderId":"431781277218"}
+[debug] [2023-04-14T01:41:33.756Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/literate-c0532 [none]
+[debug] [2023-04-14T01:41:34.349Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/literate-c0532 200
+[debug] [2023-04-14T01:41:34.350Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/literate-c0532 {"projectId":"literate-c0532","projectNumber":"431781277218","displayName":"Literate","name":"projects/literate-c0532","resources":{"hostingSite":"literate-c0532"},"state":"ACTIVE","etag":"1_50ea9eaf-4478-49e1-a188-78a8cf2551f8"}
+[info] i  hosting[literate-c0532]: Serving hosting files from: public/templates {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic/templates\u001b[22m"}}
+[info] ✔  hosting[literate-c0532]: Local server: http://127.0.0.1:5002 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5002\u001b[22m\u001b[24m"}}
+[warn] ⚠  emulators: The Emulator UI is not starting, either because none of the emulated products have an interaction layer in Emulator UI or it cannot determine the Project ID. Pass the --project flag to specify a project. {"metadata":{"emulator":{"name":"hub"},"message":"The Emulator UI is not starting, either because none of the emulated products have an interaction layer in Emulator UI or it cannot determine the Project ID. Pass the --project flag to specify a project."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┐
+│ Emulator │ Host:Port      │
+├──────────┼────────────────┤
+│ Hosting  │ 127.0.0.1:5002 │
+└──────────┴────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[info] i  hosting: 127.0.0.1 - - [14/Apr/2023:01:41:45 +0000] "GET / HTTP/1.1" 404 139 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Apr/2023:01:41:45 +0000] \"GET / HTTP/1.1\" 404 139 \"-\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15\""}}
