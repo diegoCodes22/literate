@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "public/templates",
+    "site": "literate-c0532",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
