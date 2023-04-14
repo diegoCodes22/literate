@@ -13,21 +13,25 @@
             d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
       </svg>
     <dialog class="modal">
-      <div>
+      <div class="modal-text">
         <h2>Are you sure you want to leave?</h2>
         <p>Any unsaved changes will be lost.</p>
       </div>
       <div class="modal-btns text-center">
-        <button class="btn-secondary" id="leave-create" formaction="/" formmethod="get">Leave</button>
-        <button class="btn-secondary" id="stay-create">Stay</button>
+        <button class="btn-primary-red" id="leave-create" formaction="/" formmethod="get">Leave</button>
+        <button class="btn-primary" id="stay-create">Stay</button>
+      </div>
+      <div class="modal-arrows">
+        <span><small>Left arrow</small></span>
+        <span><small>Right arrow</small></span>
       </div>
     </dialog>
     <div>
       <div>
-        <h2>Create a deck</h2>
+        <h1>Create a deck</h1>
       </div>
       <div>
-        <p>Deck name *</p>
+        <p class="bolder">Deck name *</p>
         <label>
           <span><input type="text" id="deck-name" name="deck-name" class="field-input" autofocus></span>
         </label>
@@ -48,7 +52,7 @@
         <fieldset class="card">
           <div class="del-card">
               <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor"
-                   class="bi bi-x del-card"
+                   class="bi bi-x del-card card-delete"
                    viewBox="0 0 16 16">
                 <path
                     d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
