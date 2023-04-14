@@ -33,83 +33,17 @@ body {
     margin-top: 2rem;
 }
 
-.lr-heading {
-    margin-top: 7rem;
-    margin-bottom: 1rem;
-    display: flex;
-}
-.lr-heading h1 {
-    font-size: 2.75rem;
-}
-.logo {
-    height: 5.63rem;
-    width: 6.3rem;
-}
-#register-logo {
-    margin: .5rem 3rem 0 -10rem;
-}
-#login-logo {
-    margin: .5rem 5rem 0 -12rem;
-}
-
-.logo:hover {
-    cursor: pointer;
-}
-
-.form-div {
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    margin: 0 auto;
-}
-.form-div label {
-    font-size: 1.5rem;
-    font-weight: 900;
-    width: fit-content;
-}
-
 .form-field {
-    height: 3.8rem;
-    width: 30rem;
-    min-width: 25rem;
-    max-width: 100%;
-    margin: 0 auto;
-    font-size: 2rem;
-    border-radius: 10px;
-    border: 2px darkgrey solid;
+    font-size: 1.8rem;
+    border-radius: 5px;
 }
 .form-field:hover {
     cursor: pointer;
     border: 2px solid black;
 }
 
-.err-succ {
-    margin-bottom: 2.5rem;
-}
-
 #login_button{
     text-align: center;
-}
-
-#form_button {
-    font-size: 1.7rem;
-    width: 30rem;
-    min-width: 25rem;
-    max-width: 50%;
-    height: 3.5rem;
-    border-radius: 15px;
-    margin-top: 1rem;
-}
-
-#foot {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-}
-#foot a {
-    text-decoration: none;
-    color: royalblue;
-    font-weight: 900;
-    font-size: 1.65rem;
 }
 
 .form-div input:focus {
@@ -126,7 +60,6 @@ body {
 
 .form-div small {
     color: #ea433b;
-    font-size: 1.2rem;
 }
 
 .vertical-nav {
@@ -153,12 +86,6 @@ body {
     font-family: "Copperplate", cursive;
     text-decoration: none;
     color: black;
-}
-
-#logo-nav {
-    margin-left: 4.8rem;
-    height: 6.3rem;
-    width: 7rem;
 }
 
 .grid-item-content {
@@ -196,10 +123,6 @@ main {
     text-decoration: none;
 }
 
-.logout-svg {
-    margin: 0 14rem 0 auto;
-}
-
 .btn-primary {
     background-color: rgb(36, 110, 250);
     border-radius: 6px;
@@ -226,6 +149,12 @@ main {
 }
 #login_register a:hover {
     text-decoration: underline;
+}
+
+#form_button {
+    font-size: 1.3rem;
+    width: 8rem;
+    height: 2.8rem;
 }
 
 #no-session {
@@ -281,13 +210,8 @@ main {
     box-shadow: 2px 2px 1px 1px rgba(65, 70, 77,0.3);
 }
 .stat-box div span {
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     font-weight: bold;
-}
-
-.coming-soon {
-    font-size: 1.3rem !important;
-    font-weight: 300 !important;
 }
 
 .decks {
@@ -472,13 +396,13 @@ input:checked ~ .learning-label {
         height: 92%;
         grid-area: 1 / 1 / 1 / 1;
     }
-    #logo-nav {
+    .brand {
         display: none;
     }
     .nav-list {
         width: 100%;
         background-color: #fff;
-        padding: 0 3.3rem .4rem 0 !important;
+        padding: 0 1.5rem 1rem 0 !important;
         margin: auto auto 0 auto;
     }
     .nav-list li{
@@ -489,10 +413,6 @@ input:checked ~ .learning-label {
     .nav-list li a {
         padding-left: 2.5rem;
         font-size: 1em;
-    }
-    .nav-list li a svg {
-        height: 35px;
-        width: 35px;
     }
     #dashboard-header-div {
         margin-left: -1.4rem !important;
@@ -505,7 +425,6 @@ input:checked ~ .learning-label {
     .dashboard-btn a {
         display: none;
     }
-    /*this is for more svg in layout2-backup*/
     #changeColor {
         margin: 0 1.5rem 0 auto;
     }
@@ -521,9 +440,6 @@ input:checked ~ .learning-label {
     #add-card-btn {
         margin-top: -3rem;
         padding-bottom: 100px;
-    }
-    .practice-cards fieldset {
-        min-width: 400px !important;
     }
     @media (max-width: 1100px){
         .decks{
@@ -551,53 +467,25 @@ input:checked ~ .learning-label {
         }
 
         #def-vocab-ex {
-            margin-top: -1rem !important;
-            padding-bottom: 0 !important;
+            margin-top: -2rem !important;
         }
         .practice-cards {
             width: 80% !important;
             height: 18rem !important;
-            margin: 1rem auto !important;
+            margin: 3rem auto !important;
         }
         .practice-cards fieldset div {
             margin-left: 1rem !important;
         }
-
-        .logout-svg {
-            margin: -1rem 0 0 0 !important;
-        }
-
-        .modal {
-            max-width: 90% !important;
-        }
-        #save-changes {
-            font-size: 1.4rem !important;
-        }
-
-        #share p {
-            font-size: 1.4rem;
-        }
-
-        .modal-arrows {
-            display: none !important;
-        }
-        @media (max-width: 560px){
-            .word-def .word {
-                width: 100% !important;
+        @media (max-width: 500px) {
+            .nav-list li {
+                padding-left: 1rem;
             }
-            .word-def .def {
-                width: 100% !important;
+            .nav-list li a {
+                padding-left: 1.5rem;
             }
-            @media (max-width: 500px) {
-                .nav-list li {
-                    padding-left: 1rem;
-                }
-                .nav-list li a {
-                    padding-left: 1.5rem;
-                }
-                .practice-cards {
-                    height: 15rem !important;
-                }
+            .practice-cards {
+                height: 15rem !important;
             }
         }
     }
@@ -623,7 +511,7 @@ input:checked ~ .learning-label {
 }
 
 .field-input {
-    height: 2.8rem;
+    height: 2.5rem;
     width: 100%;
     font-size: 1.6rem;
 }
@@ -663,21 +551,15 @@ input:checked ~ .learning-label {
 }
 
 .deck-create input{
-    border-radius: 13px;
+    border-radius: 8px;
     margin-top: -.8rem;
-}
-.deck-create h1 {
-    font-size: 2.4rem;
-}
-.deck-create p {
-    font-size: 1.5rem;
 }
 
 .example {
     margin-top: 1.8rem;
 }
 .deck-create input, input::placeholder {
-    font-size: 1.2rem;
+    font-size: 0.9rem;
 }
 .deck-create input:focus{
     outline: none;
@@ -697,8 +579,7 @@ input:checked ~ .learning-label {
 .del-card svg {
     z-index: 3 !important;
 }
-
-.card-delete:hover, .close:hover {
+.del-card:hover, .close:hover {
     cursor: pointer;
     color: slategrey;
 }
@@ -726,59 +607,35 @@ input:checked ~ .learning-label {
     justify-content: space-between;
 }
 #save-changes {
-    height: 3.4rem;
+    height: 3rem;
     width: auto;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
 }
 
-#share p {
-    margin-top: .8rem;
-}
-
-.modal{
-    height: fit-content;
-    width: auto;
-    max-width: 30%;
-    border: .7px solid black;
-    background-color: white;
-    justify-content: center;
-}
 .modal::backdrop {
     background-color: rgba(0,0,0,0.5);
 }
-.modal-text {
-    margin: 1.5rem 0;
-}
-.modal-text > *{
-    font-size: 1.7rem;
-    margin: 0 auto 1rem 12%;
-}
+
 .modal-btns {
     display: flex;
-    margin-top: 3.6rem;
 }
 .modal-btns button {
-    margin: 0 4.3rem;
-    font-size: 1.5rem;
-    width: 7rem;
-    height: 3rem;
-}
-.modal-arrows {
-    display: flex;
-    margin: .5rem 6.7rem 0 6.7rem;
-    justify-content: space-between;
+    margin: 0 1.3rem;
 }
 
-.btn-primary-red {
-    background-color: rgb(220, 13, 13);
+.btn-secondary {
+    font-size: 1rem;
+    width: 6.5rem;
+    height: 2.4rem;
+    background-color: rgb(36, 110, 250);
     border-radius: 5px;
     color: white;
     border: none;
     outline: none;
 }
-.btn-primary-red:hover {
+.btn-secondary:hover {
     cursor: pointer;
-    background-color: rgb(200, 13, 13);
+    background-color: rgb(30, 100, 220);
 }
 
 #def-vocab-ex {
@@ -818,7 +675,7 @@ input:checked ~ .learning-label {
 .practice-cards fieldset{
     min-height: fit-content;
     height: inherit;
-    max-width: 100%;
+    min-width: 950px;
     border-radius: 20px;
     background-color: white;
     border: .5px solid gray;
@@ -866,27 +723,19 @@ input:checked ~ .learning-label {
     border: none;
 }
 #left-practice-btn button {
-    background-color: rgba(255, 0, 0, .3);
+    background-color: rgb(240, 13, 13);
 }
 #right-practice-btn button {
-    background-color: rgba(75, 194, 62, .4);
+    background-color: rgb(36, 110, 250);
 }
 
 #left-practice-btn button:hover {
     cursor: pointer;
-    /*background-color: rgba(255, 0, 0, .65);*/
-    background-color: rgba(0, 0, 0, 1);
+    background-color: rgb(220, 13, 13);
 }
 #right-practice-btn button:hover {
     cursor: pointer;
     background-color: rgb(30, 100, 220);
-}
-
-#right-practice-btn button svg {
-    margin-top: .4rem;
-}
-#left-practice-btn button svg {
-    margin: .1rem 0 0 -.05rem;
 }
 
 #definition-definition, #vocabulary-vocabulary {
@@ -897,82 +746,3 @@ input:checked ~ .learning-label {
     font-size: 1.5rem;
     margin-top: -1.2rem;
 }
-
-#start-page {
-    margin: 2rem 0 0 5rem;
-
-}
-
-#brand {
-    display: flex;
-}
-#logo {
-    margin-top: 1.8rem;
-    margin-right: 1.8rem;
-    height: 6.3rem;
-    width: 7rem;
-}
-
-#content {
-    display: grid;
-    grid-template-columns: 0.5fr 0.5fr;
-}
-
-.row-border {
-    border-top: 2px solid rgba(65, 70, 77, 0.18);
-    grid-column: 1/3;
-    margin-right: 5rem;
-    margin-top: 2rem;
-}
-
-#head > * {
-    font-size: 3.4rem;
-    font-family: "Copperplate", cursive;
-    font-weight: 500;
-}
-
-#content-full {
-    margin-right: 5rem;
-    grid-column: 1/3;
-}
-
-#help-user h1 {
-    font-size: 2.5rem;
-}
-#help-user ul li {
-    font-size: 1.79rem;
-    padding-bottom: 1.2rem;
-}
-#help-user a button {
-    height: 4rem;
-    padding: 0 2rem 0 2rem;
-    width: auto;
-    font-size: 1.5rem;
-    border-radius: 20px;
-}
-
-#huse h1 {
-    font-size: 3rem;
-}
-
-#usage {
-    display: flex;
-    justify-content: space-between;
-}
-#usage div {
-    display: flex;
-    flex-direction: column;
-}
-
-.usechead {
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-
-#startpageimg {
-    height: 100%;
-    width: 90%;
-    position: relative;
-    margin-top: -4rem;
-}
-

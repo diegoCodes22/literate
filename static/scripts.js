@@ -181,22 +181,23 @@ if (more_menu_El) {
 });
 }
 
-const cards_El = document.querySelector("#cards");
-const card_delete_El = document.querySelectorAll(".card-delete");
+
+const cards_El = document.querySelectorAll("#cards");
 const add_card_EL = document.querySelector("#add-card");
 if (add_card_EL){
-    for (let i = 0; i < card_delete_El.length; i++){
-        card_delete_El[i].addEventListener("click", (e) => {
-           e.target.parentElement.parentElement.remove();
-        });
-    }
-
+    for (let i = 0; i < cards_El.length; i++) {
+            cards_El[i].addEventListener("click", function (e) {
+                if (e.target.classList.contains("del-card")) {
+                    e.target.parentElement.parentElement.remove();
+                }
+            });
+        }
     add_card_EL.addEventListener("click", function () {
         let card = document.createElement("fieldset");
         card.classList.add("card");
         card.innerHTML = `<div class="del-card">
                 <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" 
-                  class="bi bi-x del-card card-delete" viewBox="0 0 16 16">
+                  class="bi bi-x del-card" viewBox="0 0 16 16">
                   <path
                       d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                   </svg>
@@ -223,12 +224,12 @@ if (add_card_EL){
                   </label>
                 </div>
               </div>`;
-        cards_El.appendChild(card);
-        card.addEventListener("click", (e) => {
-            if (e.target.classList.contains("card-delete")){
-                e.target.parentElement.parentElement.remove();
-            }
-        });
+        card.addEventListener("click", function (e) {
+                if (e.target.classList.contains("del-card")) {
+                    e.target.parentElement.parentElement.remove();
+                }
+            });
+        cards_El[0].appendChild(card);
     });
 }
 
@@ -237,27 +238,19 @@ const close_create_El = document.querySelector("#close-create");
 if (close_create_El){
     close_create_El.addEventListener("click", function () {
         document.querySelector(".modal").showModal();
-    });
+});
 
-    document.querySelector("#leave-create").addEventListener("click", function (e) {
-        e.preventDefault();
-        window.location.href = "/";
-    });
 
-    document.querySelector("#stay-create").addEventListener("click", function (e) {
-        e.preventDefault();
-        document.querySelector(".modal").close();
-    });
-        document.addEventListener("keyup", (e) => {
-            if (document.querySelector(".modal").open === true) {
-                if (e.key === "ArrowLeft"){
-                    document.querySelector("#leave-create").click();
-                }
-                else if (e.key === "ArrowRight") {
-                    document.querySelector("#stay-create").click()
-                }
-            }
-    });
+document.querySelector("#leave-create").addEventListener("click", function (e) {
+    e.preventDefault();
+    window.location.href = "/";
+});
+
+
+document.querySelector("#stay-create").addEventListener("click", function (e) {
+    e.preventDefault();
+    document.querySelector(".modal").close();
+});
 }
 
 
@@ -350,15 +343,15 @@ if (window.location.pathname === '/practice'){
             async: false
         });
         const practice_div = document.querySelector("#def-vocab-ex");
+        let practice_type = Math.floor(Math.random() * 2)
         const practice_length = practice_cards.length-1;
-        const practice_type = Math.floor(Math.random()*2);
         let i = 0;
         function renderPractice() {
 
             document.querySelector("#reveal-div").style.display = "block";
             document.querySelector("#remember-btns").style.display = "none";
 
-            if (practice_type === 0){
+            if (practice_type === 0) {
                 practice_div.innerHTML = `
                   <div id="definition" class="practice-cards">
                     <fieldset>
@@ -380,7 +373,7 @@ if (window.location.pathname === '/practice'){
                 document.querySelector("#definition-definition").innerHTML = practice_cards[i][1];
             }
             else {
-                practice_div.innerHTML =`
+                practice_div.innerHTML = `
                   <div id="vocabulary" class="practice-cards">
                     <fieldset>
                       <div>
@@ -397,8 +390,7 @@ if (window.location.pathname === '/practice'){
                         <span class="bolder" id="definition-definition"></span>
                       </div>
                     </fieldset>
-                  </div>
-                `
+                  </div>`
                 document.querySelector("#vocabulary-vocabulary").innerHTML = practice_cards[i][0];
                 document.querySelector("#vocabulary-example").innerHTML = practice_cards[i][2];
             }
@@ -410,16 +402,16 @@ if (window.location.pathname === '/practice'){
 
         document.querySelector("#reveal").addEventListener("click", () => {
 
-            if (practice_type === 0){
+           if (practice_type === 0){
                 document.querySelector("#vocabulary-vocabulary").innerHTML = practice_cards[i][0];
                 document.querySelector("#vocabulary-example").innerHTML = practice_cards[i][2];
-            }
-            else {
-                document.querySelector("#definition-definition").innerHTML = practice_cards[i][1];
-            }
+           }
+           else {
+               document.querySelector("#definition-definition").innerHTML = practice_cards[i][1];
+           }
 
-            document.querySelector("#reveal-div").style.display = "none";
-            document.querySelector("#remember-btns").style.display = "flex";
+           document.querySelector("#reveal-div").style.display = "none";
+           document.querySelector("#remember-btns").style.display = "flex";
 
             function f(){
                 practice_cards[i][3] = +practice_cards[i][3];
@@ -454,17 +446,15 @@ if (window.location.pathname === '/practice'){
                 if (e.key === "ArrowRight") {
                     document.querySelector("#right-practice-btn").firstElementChild.click();
                 }
-                else if (e.key === "ArrowLeft") {
-                    document.querySelector("#left-practice-btn").firstElementChild.click();
-                }
             });
+
+            document.addEventListener("keyup", (e) => {
+                if (e.key === "ArrowLeft") document.querySelector("#left-practice-btn").firstElementChild.click();
+            });
+
         });
         document.addEventListener("keyup", (e) => {
             if (e.key === "Enter") document.querySelector("#reveal").click();
         });
     });
 }
-
-document.querySelector(".logo").addEventListener("click", () => {
-    window.location.pathname = "/";
-});

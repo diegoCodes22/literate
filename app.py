@@ -39,29 +39,6 @@ def parse_deck_info(user_id=None, access=None):
 
 
 @login_required
-def render_stats():
-    user_id = session["user_id"]
-
-    cur.execute("SELECT deck_info FROM decks WHERE user_id=?", (user_id, ))
-    decks = cur.fetchall()
-
-    word_count = 0
-    words_mastered = 0
-
-    for deck in decks:
-        deck_info = json.loads(deck["deck_info"])
-        word_count += len(deck_info["word"])
-
-        # To make words_mastered show the mastered words, I need enumerate,
-        # because I will have to access deck_info["word"][i]
-        for i, score in enumerate(deck_info["scores"]):
-            if int(score) >= 10:
-                words_mastered += 1
-
-    return word_count, words_mastered
-
-
-@login_required
 def paand(user_id, action, deck_hash=None, access=None, info=None, add=None):
     owner_id = None
 
@@ -170,7 +147,7 @@ def index():
             return inserted
 
     else:
-        return render_template("index.html", decks_list=parse_deck_info(user_id=user_id), stats=render_stats())
+        return render_template("index.html", decks_list=parse_deck_info(user_id=user_id))
 
 
 @app.route("/start_page")
