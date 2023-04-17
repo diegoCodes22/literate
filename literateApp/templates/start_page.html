@@ -1,0 +1,58 @@
+{% extends "layout3.html" %}
+
+{% block title %}
+    Flash cards by Diego
+{% endblock %}
+
+{% block main %}
+<div id="start-page">
+  <div id="brand">
+    <img src="../static/images/logo.png" id="logo" class="logo" alt="logo">
+    <h1 class="brand">Literate</h1>
+  </div>
+  <div id="content">
+    <section>
+      <div id="head">
+        <h1>Discover a new way of learning. Become literate in any subject of your choosing.</h1>
+      </div>
+      <div id="help-user">
+        <h1>How will literate help you?</h1>
+        <ul>
+          <li>Understand people when talking about unfamiliar subjects.</li>
+          <li>Create your own decks, and practice anything.</li>
+          <li>Discover decks made by us, or other students just like you.</li>
+          <li>Practice any topic of your choosing in a user-friendly app.</li>
+        </ul>
+        <a href="/register"><button class="btn-primary startpg-btn">Sign Up. It's free.</button></a>
+      </div>
+    </section>
+    <section>
+      <img src="../static/images/startpageimg.png" alt="img" id="startpageimg">
+    </section>
+    <section class="row-border"></section>
+    <section id="content-full">
+      <div id="faq">
+        <h1>Frequently Asked Questions</h1>
+        <div>
+          <p class="q">Is it completely free?</p>
+          <p>We will introduce some paid premium plans with more available features, but the essentials will always be free.</p>
+        </div>
+        <div>
+          <p class="q">Do you have a mobile app?</p>
+          <p>Not yet, but we are working on it, you can expect it soon!<br>However, our web app is mobile friendly, and you can use it from your mobile browser.</p>
+        </div>
+        <div>
+          <p class="q">Do you support other languages?</p>
+          <p>Currently, we create cards only in english. We are working on integrating translation, so you can quickly translate any deck into almost any language. That said, you might be able to find other student's cards in foreign languages.</p>
+        </div>
+      </div>
+        <div id="last" class="text-center">
+          <h1>Ready to learn?</h1>
+          <a href="/register">
+            <button class="btn-primary startpg-btn">Sign Up. And give us a try</button>
+          </a>
+        </div>
+    </section>
+  </div>
+</div>
+{% endblock %}

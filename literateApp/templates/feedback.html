@@ -1,0 +1,34 @@
+{% extends "layout2.html" %}
+
+{% block title %}
+  Feedback
+{% endblock %}
+
+{% block main %}
+<div id="feedback">
+  <div>
+    <form action="/feedback" method="post" id="feedback-form" class="text-center">
+      <label for="f-name">Your name</label>
+      <input type="text" id="f-name" class="form-field f-input" name="f-name">
+      
+      <label for="f-email">Your email</label>
+      <input type="text" id="f-email" class="form-field f-input" name="f-email">
+      
+      <label for="f-econtent"></label>
+      <textarea name="f-econtent" id="f-econtent" class="f-input"></textarea>
+      
+      <input type="submit" class="btn-primary" value="Send feedback" id="f-btn">
+    </form>
+  </div>
+  <div id="f-text">
+    <h1>
+      We'd love to hear your thoughts
+    </h1>
+    <p>
+      Your thoughts are very important to us. Each time you share a bug, complaint, or a suggestion, it helps us make a
+      better app for you.<br>
+      <strong>We are very thankful for your feedback!</strong>
+    </p>
+  </div>
+</div>
+{% endblock %}

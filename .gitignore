@@ -1,5 +1,5 @@
 /flow.txt
 /x.py
-/flask_session
+/literateApp/server/src/flask_session
 /node_modules
 /literate.sqlite
