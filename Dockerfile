@@ -5,8 +5,9 @@ WORKDIR /literateApp
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY . /opt
+COPY literateApp /app
+COPY literateDB /app/literateDB
 
 EXPOSE 8080
 
-CMD ["python", "/opt/app.py", "-m", "flask", "run"]
+CMD ["python", "/app/app.py", "-m", "flask", "run"]
