@@ -5,3 +5,4 @@ waitress
 flask_session
 google
 sqlalchemy
+mysql-connector-python
