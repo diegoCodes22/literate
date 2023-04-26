@@ -1,6 +1,5 @@
 # import sqlite3
 
-from literateApp.app import paand
 import sqlalchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 from json import loads, dumps
@@ -77,3 +76,14 @@ def paand_test(dbs, user_id, action, deck_hash=None, access=None, info=None, add
                                 "access": access, "user_id": user_id, "deck_hash": deck_hash})
         cur.commit()
         return 0
+
+
+def test(dbs):
+    with dbs.connect() as cur:
+        cur.execute(sqlalchemy.text("INSERT INTO users (email, password_hash) VALUES ('diego3', 'diego22')"))
+        cur.commit()
+        uid = cur.execute(sqlalchemy.text("SELECT LAST_INSERT_ID()")).fetchone()
+    return uid[0]
+
+
+print(test(testing_db))

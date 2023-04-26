@@ -348,21 +348,21 @@ main {
     color: red;
 }
 
-.deck-name{
+.deck_name{
     text-align: initial;
     justify-content: initial;
     margin: -1.5rem 0 0 1.3rem;
 }
-.deck-name a {
+.deck_name a {
     text-decoration: none;
     color: black;
 }
-.deck-name a div h2{
+.deck_name a div h2{
     margin-bottom: 0;
     font-size: 1.79rem;
     font-weight: bolder;
 }
-.deck-name a p {
+.deck_name a p {
     margin-top: 0;
     font-size: 1.25rem;
 }
