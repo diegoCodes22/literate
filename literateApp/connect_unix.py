@@ -1,6 +1,15 @@
 import sqlalchemy
 
 
+def access_secret_version(secret_version_id):
+    from google.cloud import secretmanager
+
+    client = secretmanager.SecretManagerServiceClient()
+    response = client.access_secret_version(name=secret_version_id)
+
+    return response.payload.data.decode('UTF-8')
+
+
 def connect_unix_socket():
     db_user = access_secret_version("projects/431781277218/secrets/literate-db-user/versions/1")
     db_pass = access_secret_version("projects/431781277218/secrets/literate-db-pass/versions/1")
@@ -38,12 +47,3 @@ def connect_unix_socket():
         # [END_EXCLUDE]
         )
     return pool
-
-
-def access_secret_version(secret_version_id):
-    from google.cloud import secretmanager
-
-    client = secretmanager.SecretManagerServiceClient()
-    response = client.access_secret_version(name=secret_version_id)
-
-    return response.payload.data.decode('UTF-8')
