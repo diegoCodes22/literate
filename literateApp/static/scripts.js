@@ -73,7 +73,7 @@ function email_availability(validity, callback){
                 success(emailEl);
                 callback(true);
             } else {
-                showError(emailEl, "Email already in use.");
+                showError(emailEl, "An account with that email already exists.");
                 callback(false);
             }
         }

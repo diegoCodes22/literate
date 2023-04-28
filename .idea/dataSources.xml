@@ -18,5 +18,19 @@
         <property name="allowPublicKeyRetrieval" value="TRUE" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="postgresql_testing@dpg-ch5u8omkobid0i2silvg-a.oregon-postgres.render.com" uuid="d160e6b9-8e6e-4887-9407-c984c7c8420e">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://dpg-ch5u8omkobid0i2silvg-a.oregon-postgres.render.com:5432/postgresql_testing</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="literate.sqlite" uuid="472de8bd-c3d6-4ea4-aad7-09fd194d7ca2">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/literate.sqlite</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

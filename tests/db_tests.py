@@ -1,89 +1,54 @@
-# import sqlite3
+import psycopg2
+import sqlalchemy.exc
+from sqlalchemy.orm import sessionmaker
+from literateApp.models import User, Deck
+from literateApp.helpers import generate_unique_id
+from literateApp.sqlalchemy_helpers import return_dict, sqlalchemy_db_init
 
-import sqlalchemy
+from functools import wraps
+
 from werkzeug.security import check_password_hash, generate_password_hash
 from json import loads, dumps
-from literateApp.helpers import generate_unique_id
 
 
-# sqlite_conn = sqlite3.connect("../literate.sqlite")
-# sqlite_conn.row_factory = sqlite3.Row
-# sqlite_cur = sqlite_conn.cursor()
+import sqlite3
+sqlite_db = sqlite3.connect("../literate.sqlite")
+sqlite_db.row_factory = sqlite3.Row
+sqlite_cur = sqlite_db.cursor()
 
 
-def init_db():
-    db_user = "root"
-    db_pass = "Prien-21."
-    db_name = "mysql-testing"
-    db_host = "localhost"
-    db_port = 3306
-    pool = sqlalchemy.create_engine(
-        sqlalchemy.engine.url.URL.create(
-            drivername="mysql+pymysql",
-            username=db_user,
-            password=db_pass,
-            host=db_host,
-            port=db_port,
-            database=db_name,
-        ),
-        pool_size=5,
-        max_overflow=2,
-        pool_timeout=60,
-        pool_recycle=1800,
-    )
-    return pool
+def function_timer(f):
+    from time import perf_counter
+
+    @wraps(f)
+    def decorator_function(*args, **kwargs):
+        start_time = perf_counter()
+        function = f(*args, **kwargs)
+        end_time = perf_counter()
+        print(f"{f.__name__}({args} {kwargs})-- {end_time-start_time}")
+        return function
+    return decorator_function
 
 
-testing_db = init_db()
+postgresql_db = sqlalchemy_db_init(driver_name="postgresql+psycopg2", user="root",
+                                   password="rQ6Qp26tW2UWfl9kgtMZdWeB2vzNee1N",
+                                   host="dpg-ch5u8omkobid0i2silvg-a.oregon-postgres.render.com", port=5432,
+                                   db_name="postgresql_testing")
+
+sqlalchemy_Session = sessionmaker(bind=postgresql_db)
 
 
-# def transfer(dbs):
-#     sqlite_cur.execute("SELECT * FROM users")
-#     sqlite_users = sqlite_cur.fetchall()
-#     stmt = sqlalchemy.text("INSERT INTO users (email, password_hash) VALUES (:email, :password_hash)")
-#     with dbs.connect() as cur:
-#         for sqlite_user in sqlite_users:
-#             cur.execute(stmt, parameters={"email": sqlite_user['email'], "password_hash":
-#             sqlite_user['password_hash']})
-#         cur.commit()
-
-
-# transfer(testing_db)
-
-
-# Hash update u_id == o_id add
-
-def paand_test(dbs, user_id, action, deck_hash=None, access=None, info=None, add=None):
-
-    with dbs.connect() as cur:
-        deck = cur.execute(sqlalchemy.text("SELECT * FROM decks WHERE deck_hash=:deck_hash"),
-                           parameters={"deck_hash": deck_hash}).mappings().all()
-
-        owner_id = deck[0]["user_id"]
-
-        scores = loads(deck[0]["deck_info"])['scores']
-
-        deck_info = {}
-        deck_info["scores"] = scores
-        if len(deck_info["scores"]) != len(deck_info["word"]):
-            deck_info["scores"] += ["0"]*(len(deck_info["word"])-len(deck_info["scores"]))
-
-        deck_info["scores"] = ["0"]*len(deck_info["word"])
-
-        cur.execute(sqlalchemy.text("UPDATE decks SET deck_name=:deck_name, deck_info=:deck_info, access=:access "
-                                    "WHERE user_id=:user_id AND deck_hash=:deck_hash"),
-                    parameters={"deck_name": deck_info["deck_name"][0], "deck_info": dumps(deck_info),
-                                "access": access, "user_id": user_id, "deck_hash": deck_hash})
-        cur.commit()
-        return 0
-
-
-def test(dbs):
-    with dbs.connect() as cur:
-        cur.execute(sqlalchemy.text("INSERT INTO users (email, password_hash) VALUES ('diego3', 'diego22')"))
-        cur.commit()
-        uid = cur.execute(sqlalchemy.text("SELECT LAST_INSERT_ID()")).fetchone()
-    return uid[0]
-
-
-print(test(testing_db))
+def transfer(table):
+    sqlite_cur.execute(f"SELECT * FROM {table}")
+    rows = sqlite_cur.fetchall()
+    with sqlalchemy_Session() as session:
+        if table == "users":
+            for row in rows:
+                session.add(User(row['id'], row['email'], row['password_hash']))
+            session.commit()
+        elif table == "decks":
+            for row in rows:
+                session.add(Deck(row['deck_id'], row['user_id'], row['deck_info'], row["deck_name"], row['access'],
+                                 row['deck_hash'], row['learning']))
+            session.commit()
+    return 0
