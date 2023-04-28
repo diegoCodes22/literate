@@ -1,7 +1,6 @@
 import inflect
 from functools import wraps
 from flask import session, redirect
-import sqlalchemy
 
 
 def login_required(f):

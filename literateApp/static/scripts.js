@@ -35,7 +35,7 @@ const password_validate = () => {
     let password = passwordEl.value;
 
     if (!isSecurePassword(password)) {
-        showError(passwordEl, 'Password must have at least 8 characters, include at least 1 lowercase character, 1 uppercase character, 1 number, and optionally special characters (!#.@$%^&*');
+        showError(passwordEl, 'Password must have at least 8 characters, include at least 1 lowercase character, 1 uppercase character, 1 number, and 1 special characters (!#.@$%^&*');
     }
     else {
         success(passwordEl);
