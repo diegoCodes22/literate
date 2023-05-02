@@ -36,19 +36,3 @@ postgresql_db = sqlalchemy_db_init(driver_name="postgresql+psycopg2", user="root
                                    db_name="postgresql_testing")
 
 sqlalchemy_Session = sessionmaker(bind=postgresql_db)
-
-
-def transfer(table):
-    sqlite_cur.execute(f"SELECT * FROM {table}")
-    rows = sqlite_cur.fetchall()
-    with sqlalchemy_Session() as session:
-        if table == "users":
-            for row in rows:
-                session.add(User(row['id'], row['email'], row['password_hash']))
-            session.commit()
-        elif table == "decks":
-            for row in rows:
-                session.add(Deck(row['deck_id'], row['user_id'], row['deck_info'], row["deck_name"], row['access'],
-                                 row['deck_hash'], row['learning']))
-            session.commit()
-    return 0

@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine, engine
 
+
 def sqlalchemy_db_init(driver_name, user, password, host, port, db_name, pool_size=5, max_overflow=2, pool_timeout=60,
                        pool_recycle=1800):
     pool = create_engine(

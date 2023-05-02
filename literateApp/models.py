@@ -32,7 +32,8 @@ class Deck(Base):
     deck_hash = Column("deck_hash", VARCHAR(255), unique=True)
     learning = Column("learning", VARCHAR(5))
 
-    def __init__(self, deck_id, user_id, deck_info, deck_name, access, deck_hash, learning):
+    def __init__(self, user_id: int, deck_info: str, deck_name: str, access: str, learning: str = "On",
+                 deck_id=None, deck_hash=None):
         self.deck_id = deck_id
         self.user_id = user_id
         self.deck_info = deck_info
