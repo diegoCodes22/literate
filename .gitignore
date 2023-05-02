@@ -3,3 +3,4 @@
 /literateApp/server/src/flask_session
 /node_modules
 /literate.sqlite
+.venv
