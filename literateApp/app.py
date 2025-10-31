@@ -445,5 +445,10 @@ def feedback():
         return render_template("/feedback.html")
 
 
+@app.route("/health")
+def health():
+    return {"ok": True}
+
+
 if __name__ == "__main__":
     serve(app, host="127.0.0.1", port=8080, threads=2)
