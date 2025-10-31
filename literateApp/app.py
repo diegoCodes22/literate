@@ -1,6 +1,7 @@
 # Server
 from flask import Flask, session, redirect, request, render_template, jsonify
 from flask_session import Session
+from flask_cors import CORS
 from waitress import serve
 
 # Functions
@@ -31,6 +32,7 @@ sender_pass = "nefpy0-wycdEj-mocrid"
 
 # Configure application
 app = Flask(__name__)
+CORS(app)
 # app.debug = True
 
 # Configure session to use filesystem instead of signed cookies
