@@ -13,6 +13,8 @@ import sqlalchemy
 from literateApp.sqlalchemy_helpers import return_dict, sqlalchemy_db_init
 from sqlalchemy.orm import sessionmaker
 from literateApp.models import Deck, User, Base
+from flask.sessions import SecureCookieSessionInterface
+
 
 # Data
 from json import loads, dumps
@@ -38,7 +40,7 @@ CORS(app)
 
 # Configure session to use filesystem instead of signed cookies
 app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
+app.session_interface = SecureCookieSessionInterface()
 Session(app)
 
 # Connect to database
