@@ -1,6 +1,6 @@
 # Server
 from flask import Flask, session, redirect, request, render_template, jsonify
-from flask_session import Session
+# from flask_session import Session
 from flask_cors import CORS
 # from waitress import serve
 
@@ -42,7 +42,7 @@ CORS(app)
 # Configure session to use filesystem instead of signed cookies
 app.config["SESSION_PERMANENT"] = False
 app.session_interface = SecureCookieSessionInterface()
-Session(app)
+# Session(app)
 
 # Connect to database
 # Refactoring needed
