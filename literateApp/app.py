@@ -10,7 +10,7 @@ from literateApp.helpers import login_required, generate_unique_id
 
 # Database
 import sqlalchemy
-from sqlalchemy_helpers import return_dict, sqlalchemy_db_init
+from literateApp.sqlalchemy_helpers import return_dict, sqlalchemy_db_init
 from sqlalchemy.orm import sessionmaker
 from models import Deck, User
 
