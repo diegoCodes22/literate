@@ -6,7 +6,7 @@ from flask_cors import CORS
 
 # Functions
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import login_required, generate_unique_id
+from literateApp.helpers import login_required, generate_unique_id
 
 # Database
 import sqlalchemy
