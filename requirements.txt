@@ -5,3 +5,4 @@ SQLAlchemy==2.0.23
 psycopg2-binary==2.9.9
 gunicorn==21.2.0
 waitress==2.1.2
+inflect==7.2.1
