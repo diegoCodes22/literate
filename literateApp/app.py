@@ -32,11 +32,6 @@ sender_pass = "nefpy0-wycdEj-mocrid"
 
 # Configure application
 app = Flask(__name__)
-
-key = os.getenv("SECRET_KEY")
-print("Loaded SECRET_KEY (runtime):", repr(key))
-app.secret_key = key or "no-key-found"
-
 app.secret_key = os.getenv("SECRET_KEY")
 CORS(app)
 # app.debug = True
@@ -238,6 +233,8 @@ def logout():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
+    key = os.getenv("SECRET_KEY")
+    print("Loaded SECRET_KEY (runtime):", repr(key))
 
     if request.method == "POST":
 
