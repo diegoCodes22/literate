@@ -32,6 +32,7 @@ sender_pass = "nefpy0-wycdEj-mocrid"
 
 # Configure application
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY", "RaNND12lkkaoop0912nHSIY672HSA6KkkI1")
 CORS(app)
 # app.debug = True
 
