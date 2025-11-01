@@ -24,7 +24,7 @@ from email.mime.multipart import MIMEMultipart
 
 # Error handling
 from sqlalchemy.exc import IntegrityError
-
+import os
 
 # Email config
 feedback_email = "literate22@outlook.com"
