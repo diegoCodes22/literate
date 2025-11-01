@@ -455,3 +455,9 @@ def health():
 if __name__ == "__main__":
     # serve(app, host="127.0.0.1", port=8080, threads=2)
     app.run()
+
+
+@app.teardown_appcontext
+def shutdown_session(exception=None):
+    db.dispose()
+
