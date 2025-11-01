@@ -1,0 +1,1 @@
+from literateApp.app import app as application
