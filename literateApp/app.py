@@ -2,7 +2,7 @@
 from flask import Flask, session, redirect, request, render_template, jsonify
 from flask_session import Session
 from flask_cors import CORS
-from waitress import serve
+# from waitress import serve
 
 # Functions
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -451,4 +451,5 @@ def health():
 
 
 if __name__ == "__main__":
-    serve(app, host="127.0.0.1", port=8080, threads=2)
+    # serve(app, host="127.0.0.1", port=8080, threads=2)
+    app.run()
