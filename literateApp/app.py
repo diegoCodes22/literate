@@ -38,7 +38,7 @@ CORS(app)
 
 # Configure session to use filesystem instead of signed cookies
 app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "null"
+app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Connect to database
@@ -233,8 +233,6 @@ def logout():
 
 @app.route("/register", methods=["POST", "GET"])
 def register():
-    key = os.getenv("SECRET_KEY")
-    print("Loaded SECRET_KEY (runtime):", repr(key))
 
     if request.method == "POST":
 
