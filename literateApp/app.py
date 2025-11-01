@@ -12,7 +12,7 @@ from literateApp.helpers import login_required, generate_unique_id
 import sqlalchemy
 from literateApp.sqlalchemy_helpers import return_dict, sqlalchemy_db_init
 from sqlalchemy.orm import sessionmaker
-from literateApp.models import Deck, User
+from literateApp.models import Deck, User, Base
 
 # Data
 from json import loads, dumps
@@ -52,6 +52,7 @@ db = sqlalchemy_db_init(
 )
 
 sqlalchemy_Session = sessionmaker(bind=db)
+Base.metadata.create_all(bind=db)
 
 
 @login_required
